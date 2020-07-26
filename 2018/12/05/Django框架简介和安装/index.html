@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Django框架简介和安装 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Django框架简介1、web框架本质所有的Web应用本质就是一个socket服务端，用户使用的浏览器就是socket客户端 软件开发架构：C&#x2F;S架构和B&#x2F;S架构，B&#x2F;S架构本质也是C&#x2F;S 1、纯手撸简易版web框架，实现根据用户输入的后缀不同内容返回不同的结果 123456789101112131415161718192021222324 1 import socket 2  3 server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django框架简介和安装">
+<meta property="og:url" content="http://yoursite.com/2018/12/05/Django%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B%E5%92%8C%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="Django框架简介1、web框架本质所有的Web应用本质就是一个socket服务端，用户使用的浏览器就是socket客户端 软件开发架构：C&#x2F;S架构和B&#x2F;S架构，B&#x2F;S架构本质也是C&#x2F;S 1、纯手撸简易版web框架，实现根据用户输入的后缀不同内容返回不同的结果 123456789101112131415161718192021222324 1 import socket 2  3 server">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/common/1843708/202001/1843708-20200104002549939-1971578748.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104002910288-1935152069.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003040067-470205153.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003056464-101412825.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003108336-324354699.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003145574-430313827.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003228893-1583592937.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003302186-15176844.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003322276-1594059379.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003434324-436108267.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003711708-1350482172.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003726519-1706850418.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003730506-2004988885.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003804200-87188063.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003826237-919442335.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003917311-1131960917.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003928491-1074359922.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004000526-1155275885.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004029658-660785568.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004053072-2036981515.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004105131-972120030.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004131347-1436438719.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004149961-1337181819.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004234939-927139874.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004247811-893053592.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004319509-370517111.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004339299-1887111957.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004359436-848671848.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004418507-1355598684.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004431179-865797680.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004558986-1004010739.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004621699-823945830.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004651558-1941720332.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004706265-1674524839.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004812045-136250503.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005039446-505749702.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005055622-1326847110.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005118690-1338742957.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005202338-596677413.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005227355-966040618.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005249578-1857938280.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005306103-1853226920.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005327878-1019827210.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005339388-1356468246.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005347086-5303542.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005441441-1879747278.png">
+<meta property="article:published_time" content="2018-12-05T13:34:33.000Z">
+<meta property="article:modified_time" content="2020-07-26T17:46:29.336Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="Django">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/common/1843708/202001/1843708-20200104002549939-1971578748.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Django框架简介和安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/05/Django%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B%E5%92%8C%E5%AE%89%E8%A3%85/" class="article-date">
+  <time datetime="2018-12-05T13:34:33.000Z" itemprop="datePublished">2018-12-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Django框架简介和安装
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Django框架简介"><a href="#Django框架简介" class="headerlink" title="Django框架简介"></a>Django框架简介</h1><h2 id="1、web框架本质"><a href="#1、web框架本质" class="headerlink" title="1、web框架本质"></a>1、web框架本质</h2><p>所有的Web应用本质就是一个socket服务端，用户使用的浏览器就是socket客户端</p>
+<p><strong>软件开发架构：</strong>C/S架构和B/S架构，B/S架构本质也是C/S</p>
+<p><strong>1、纯手撸简易版web框架</strong>，实现根据用户输入的后缀不同内容返回不同的结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="keyword">import</span> socket</span><br><span class="line"> <span class="number">2</span> </span><br><span class="line"> <span class="number">3</span> server = socket.socket()</span><br><span class="line"> <span class="number">4</span> server.bind((<span class="string">'127.0.0.1'</span>, <span class="number">9876</span>))</span><br><span class="line"> <span class="number">5</span> server.listen(<span class="number">5</span>)</span><br><span class="line"> <span class="number">6</span> </span><br><span class="line"> <span class="number">7</span> </span><br><span class="line"> <span class="number">8</span> <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line"> <span class="number">9</span>     conn, addr = server.accept()</span><br><span class="line"><span class="number">10</span>     data = conn.recv(<span class="number">1024</span>)</span><br><span class="line"><span class="number">11</span>     <span class="comment"># Http协议的响应信息,HTTP/1.1表示当前协议为Http。1.1是协议的版本。200表示成功， OK表示好的</span></span><br><span class="line"><span class="number">12</span>     conn.send(<span class="string">b'HTTP/1.1 200 OK\r\n\r\n'</span>)</span><br><span class="line"><span class="number">13</span>     <span class="comment"># print(data)</span></span><br><span class="line"><span class="number">14</span>     data = data.decode(<span class="string">'utf8'</span>)  <span class="comment"># 返回的是一串字符串，第二个字符串就是用户输入的后缀</span></span><br><span class="line"><span class="number">15</span>     <span class="comment"># 获取用户输入的后缀内容</span></span><br><span class="line"><span class="number">16</span>     target_url = data.split(<span class="string">'\r\n'</span>)[<span class="number">0</span>].split(<span class="string">' '</span>)[<span class="number">1</span>]</span><br><span class="line"><span class="number">17</span>     <span class="comment"># 判断用户输入的内容返回不同的内容</span></span><br><span class="line"><span class="number">18</span>     <span class="keyword">if</span> target_url == <span class="string">'index'</span>:</span><br><span class="line"><span class="number">19</span>         conn.send(<span class="string">b'index'</span>)</span><br><span class="line"><span class="number">20</span>     <span class="keyword">elif</span> target_url == <span class="string">'login'</span>:</span><br><span class="line"><span class="number">21</span>         conn.send(<span class="string">b'login'</span>)</span><br><span class="line"><span class="number">22</span>     <span class="keyword">else</span>:</span><br><span class="line"><span class="number">23</span>         conn.send(<span class="string">b'404 error'</span>)</span><br><span class="line"><span class="number">24</span>     conn.close()</span><br></pre></td></tr></table></figure>
+
+<p>由于socket代码是我们自己写的，HTTP数据也是我们自己处理的太过麻烦，所以有了<strong>wsgiref模块</strong></p>
+<p><strong>2、wsgiref模块</strong></p>
+<p>wsgiref模块可以帮我们封装我们写的web框架中的socket server部分</p>
+<p>根据功能不同拆分成不同的文件：</p>
+<p>urls.py：路由与视图函数的对应关系</p>
+<p>views.py：里面就是存放一堆视图函数（视图函数可以是函数也可以是类）</p>
+<p>templates文件夹（模板文件夹）：里面放一堆HTML文件</p>
+<p>用户在浏览器窗口输入url之所以能获取相应的资源是因为后端早已经开设相应的资源接口</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> <span class="keyword">from</span> wsgiref.simple_server <span class="keyword">import</span> make_server</span><br><span class="line"> <span class="number">2</span> <span class="keyword">from</span> urls <span class="keyword">import</span> urls</span><br><span class="line"> <span class="number">3</span> <span class="keyword">from</span> views <span class="keyword">import</span> *</span><br><span class="line"> <span class="number">4</span> </span><br><span class="line"> <span class="number">5</span> </span><br><span class="line"> <span class="number">6</span> <span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">(env, response)</span>:</span></span><br><span class="line"> <span class="number">7</span>     <span class="string">'''</span></span><br><span class="line"><span class="string"> 8     :param env: 请求相关的所有数据，接收的是大字典，里面的PATH_INFO参数就是用户输入的url后缀</span></span><br><span class="line"><span class="string"> 9     :param response: 响应相关的所有数据</span></span><br><span class="line"><span class="string">10     :return: 返回浏览器接收的内容</span></span><br><span class="line"><span class="string">11     '''</span></span><br><span class="line"><span class="number">12</span>     response(<span class="string">'200 OK'</span>, [])</span><br><span class="line"><span class="number">13</span>     target_url = env.get(<span class="string">'PATH_INFO'</span>)</span><br><span class="line"><span class="number">14</span>     <span class="comment"># 此处应该根据用户输入进行逻辑判断，为减少代码用for循环实现</span></span><br><span class="line"><span class="number">15</span>     <span class="comment"># 先定义一个变量存储可能匹配的函数名</span></span><br><span class="line"><span class="number">16</span>     func = <span class="literal">None</span></span><br><span class="line"><span class="number">17</span>     <span class="keyword">for</span> url <span class="keyword">in</span> urls:</span><br><span class="line"><span class="number">18</span>         <span class="comment"># 判断用户输入的是否与urls一致</span></span><br><span class="line"><span class="number">19</span>         <span class="keyword">if</span> target_url == url[<span class="number">0</span>]:</span><br><span class="line"><span class="number">20</span>             func = url[<span class="number">1</span>]</span><br><span class="line"><span class="number">21</span>             <span class="comment"># 一旦有响应就立刻结束，调转到响应url</span></span><br><span class="line"><span class="number">22</span>             <span class="keyword">break</span></span><br><span class="line"><span class="number">23</span>     <span class="comment"># 判断是否有匹配上的</span></span><br><span class="line"><span class="number">24</span>     <span class="keyword">if</span> func:</span><br><span class="line"><span class="number">25</span>         <span class="comment"># 加括号调用</span></span><br><span class="line"><span class="number">26</span>         res = func(env)</span><br><span class="line"><span class="number">27</span>     <span class="keyword">else</span>:</span><br><span class="line"><span class="number">28</span>         res = error(env)</span><br><span class="line"><span class="number">29</span>     <span class="keyword">return</span> [res.encode(<span class="string">'utf-8'</span>)]</span><br><span class="line"><span class="number">30</span> </span><br><span class="line"><span class="number">31</span> </span><br><span class="line"><span class="number">32</span> <span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"><span class="number">33</span>     <span class="comment"># 监听'127.0.0.1:9876'一旦有访问就调用run执行</span></span><br><span class="line"><span class="number">34</span>     server = make_server(<span class="string">'127.0.0.1'</span>, <span class="number">9876</span>, run)</span><br><span class="line"><span class="number">35</span>     <span class="comment"># 启动服务端</span></span><br><span class="line"><span class="number">36</span>     server.serve_forever()</span><br></pre></td></tr></table></figure>
+
+<p>基于wsgiref模块已经文件拆分的特点，在后端开设相应的资源接口1. 先在urls文件中写url与函数对应的关系。2. 再去views文件中写对应的函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">from</span> views <span class="keyword">import</span> *</span><br><span class="line"><span class="number">2</span> urls = [</span><br><span class="line"><span class="number">3</span>     (<span class="string">'/index'</span>, index),</span><br><span class="line"><span class="number">4</span>     (<span class="string">'/login'</span>, login),</span><br><span class="line"><span class="number">5</span>     (<span class="string">'/get_time'</span>, get_time),</span><br><span class="line"><span class="number">6</span> ]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">index</span><span class="params">(env)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'index'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(env)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'login'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">error</span><span class="params">(env)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'404 error'</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="comment"># 需要返回一个HTML页面能实时获取时间的</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">import</span> time</span><br><span class="line"><span class="number">3</span> <span class="function"><span class="keyword">def</span> <span class="title">get_time</span><span class="params">(env)</span>:</span></span><br><span class="line"><span class="number">4</span>     current_time = time.strftime(<span class="string">'%Y-%m-%d %X'</span>)</span><br><span class="line"><span class="number">5</span>     <span class="keyword">with</span> open(<span class="string">r'E:\Python\templates\get_time.html'</span>,<span class="string">'r'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="number">6</span>         data = f.read()</span><br><span class="line"><span class="number">7</span>     <span class="comment"># 将HTML中的文本xxx替换成当前时间</span></span><br><span class="line"><span class="number">8</span>     data = data.replace(<span class="string">'xxx'</span>,current_time)</span><br><span class="line"><span class="number">9</span>     <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+
+<p><strong>动静态网页：</strong>静态网页：数据是写死的，不变的</p>
+<p>动态网页：数据是动态获取的，比如获取当前时间，从数据库中获取数据</p>
+<p><strong>3、jinja2模块</strong></p>
+<p>提供了一个可以在HTML页面上书写类似于python后端的代码，来操作数据（模板语法）</p>
+<p><strong>下载：</strong>pip3 install jinja2</p>
+<p>flask框架模板语法使用的就是jinja2模块，所有下载了flask框架就自动下载了jinja2模块</p>
+<p>jinja2模板语法非常贴近python语法，但是并不是所有的框架使用的都是jinja2模板语法</p>
+<p>模板语法：在HTML中使用类似于python语法，本质在后端实现的，前端根本不识别</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> <span class="keyword">from</span> jinja2 <span class="keyword">import</span> Template</span><br><span class="line"><span class="number">2</span> <span class="function"><span class="keyword">def</span> <span class="title">get_info</span><span class="params">(env)</span>:</span></span><br><span class="line"><span class="number">3</span>     user_dic = &#123;<span class="string">'username'</span>: <span class="string">'shen'</span>, <span class="string">'password'</span>: <span class="number">123</span>, <span class="string">'hobby'</span>: [<span class="string">'study'</span>,<span class="string">'read'</span>]&#125;</span><br><span class="line"><span class="number">4</span>     <span class="keyword">with</span> open(<span class="string">r'E:\Python\templates\get_info.html'</span>,<span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> f:</span><br><span class="line"><span class="number">5</span>         data = f.read()</span><br><span class="line"><span class="number">6</span>     temp = Template(data)</span><br><span class="line"><span class="number">7</span>     res = temp.render(xxx=user_dic)</span><br><span class="line"><span class="number">8</span>     <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> <span class="number">1</span> &#123;&#123;xxx&#125;&#125;</span><br><span class="line"> 2     &lt;p&gt;&#123;&#123;xxx.username&#125;&#125;&lt;/p&gt;</span><br><span class="line"> 3     &lt;p&gt;&#123;&#123;xxx['password']&#125;&#125;&lt;/p&gt;</span><br><span class="line"> 4     &lt;p&gt;&#123;&#123;xxx.get('hobby')&#125;&#125;&lt;/p&gt;</span><br><span class="line"> 5     &lt;p&gt;&#123;&#123;xxx.get('hobby')[0]&#125;&#125;&lt;/p&gt;</span><br><span class="line"> 6     &lt;p&gt;&#123;&#123;xxx.get('hobby').1&#125;&#125;&lt;/p&gt;</span><br><span class="line"> <span class="number">7</span>     </span><br><span class="line"> <span class="number">8</span>     &#123;%<span class="keyword">for</span> user_dict <span class="keyword">in</span> xxx %&#125;</span><br><span class="line"> <span class="number">9</span>         &lt;tr&gt;</span><br><span class="line">10             &lt;td&gt;&#123;&#123; user_dict.password &#125;&#125;&lt;/td&gt;</span><br><span class="line">11             &lt;td&gt;&#123;&#123; user_dict.username &#125;&#125;&lt;/td&gt;</span><br><span class="line">12             &lt;td&gt;&#123;&#123; user_dict.hobby &#125;&#125;&lt;/td&gt;</span><br><span class="line">13         &lt;/tr&gt;</span><br><span class="line"><span class="number">14</span>     &#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、获取数据库中的数据展示到前端页面</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1、路由与视图函数对应关系</span><br><span class="line"></span><br><span class="line">2、视图函数</span><br><span class="line"></span><br><span class="line">3、模板文件夹</span><br><span class="line"></span><br><span class="line">4、模板语法（是在后端实现的，前端根本不识别）</span><br><span class="line"></span><br><span class="line">&#123;&#123;&#125;&#125; :和变量有关</span><br><span class="line"></span><br><span class="line">&#123;% %&#125;:和逻辑有关，for循环等</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pymysql</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_user</span><span class="params">(env)</span>:</span></span><br><span class="line">    conn = pymysql.connect(</span><br><span class="line">        host=<span class="string">'127.0.0.1'</span>,</span><br><span class="line">        port=<span class="number">3306</span>,</span><br><span class="line">        database=<span class="string">'dome'</span>,</span><br><span class="line">        charset=<span class="string">'utf8'</span>,</span><br><span class="line">        user=<span class="string">'root'</span>,</span><br><span class="line">        password=<span class="string">'2694'</span>,</span><br><span class="line">        autocommit=<span class="literal">True</span></span><br><span class="line">    )</span><br><span class="line">    cursor = conn.cursor(pymysql.cursors.DictCursor)</span><br><span class="line">    sql = <span class="string">'select * from user_info'</span></span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    data = cursor.fetchall()</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">r'E:\Python\templates\get_user.html'</span>,<span class="string">'r'</span>,encoding=<span class="string">'utf-8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        res = f.read()</span><br><span class="line">    tmp = Template(res)</span><br><span class="line">    res = tmp.render(xxx=data)</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"col-md-8 col-md-offset-2"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">table</span> <span class="attr">class</span>=<span class="string">"table table-hover table-bordered"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">th</span>&gt;</span>id<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">th</span>&gt;</span>username<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">th</span>&gt;</span>password<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">th</span>&gt;</span>hobby<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">                    &#123;%for user_dic in xxx %&#125;</span><br><span class="line">                        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; user_dic.id &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; user_dic.username &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; user_dic.password &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">td</span>&gt;</span>&#123;&#123; user_dic.hobby &#125;&#125;<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">                    &#123;% endfor %&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2、python三大主流web框架"><a href="#2、python三大主流web框架" class="headerlink" title="2、python三大主流web框架"></a>2、python三大主流web框架</h2><h3 id="1、Django"><a href="#1、Django" class="headerlink" title="1、Django"></a>1、Django</h3><p>优点：大而全，自身携带的组件和功能特别多</p>
+<p>缺点：笨重，当功能不多时不需要使用很多其他的功能</p>
+<h3 id="2、flask"><a href="#2、flask" class="headerlink" title="2、flask"></a>2、flask</h3><p>优点：小而精，自身携带的组件和功能特别少，但是第三方支持该框架的模块特别特别多，叠加起来甚至可以超过Django</p>
+<p>缺点：受限于第三方模块</p>
+<h3 id="3、tornado"><a href="#3、tornado" class="headerlink" title="3、tornado"></a>3、tornado</h3><p>异步非阻塞，天然支持高并发，甚至可以开发游戏服务器</p>
+<p>这三种框架基本都遵循下面三个步骤</p>
+<p>A:socket<br>B:路由分发<br>C:模板渲染<br>　　　　　　django<br>　　　　　　　　A:用的别人的 wsgiref<br>　　　　　　　　B:自己写的<br>　　　　　　　　C:自己写的</p>
+<p>　　　　　　flask<br>　　　　　　　　A:用的被人的 werkzeug<br>　　　　　　　　B:自己写的<br>　　　　　　　　C:用的别人的 jinja2</p>
+<p>　　　　　　tornado<br>　　　　　　　　A，B，C都是自己的</p>
+<h2 id="3、Django框架"><a href="#3、Django框架" class="headerlink" title="3、Django框架"></a>3、Django框架</h2><h3 id="1、注意事项"><a href="#1、注意事项" class="headerlink" title="1、注意事项"></a>1、注意事项</h3><ul>
+<li>计算机名称不能有中文</li>
+<li>项目文件名也不能有中文</li>
+<li>一个pycharm窗口就是单独的完整的项目</li>
+<li>python解释器的版本最好是3.6的，3.7版本会报错，下面有解决方法演示</li>
+</ul>
+<h3 id="2、版本"><a href="#2、版本" class="headerlink" title="2、版本"></a>2、版本</h3><p>1.xx版本与2.xx版本</p>
+<p>推荐使用1.11.09~1.11.13</p>
+<p>如果已经安装不需要手动卸载，重新安装会自动先卸载之前的版本再安装</p>
+<p>下载版本图如下：</p>
+<p><img src="https://img2018.cnblogs.com/common/1843708/202001/1843708-20200104002549939-1971578748.png" alt="img"></p>
+<p><strong>两种下载方式</strong></p>
+<ul>
+<li>第一种方式</li>
+</ul>
+<p>通过从cmd输入命令行pip install django == 1.11.11</p>
+<ul>
+<li>第二种方式</li>
+</ul>
+<p>在pycharm的settings中找到project interpreter选项，在里面添加django1.11.11版本就行</p>
+<h3 id="4、测试是否安装成功"><a href="#4、测试是否安装成功" class="headerlink" title="4、测试是否安装成功"></a>4、测试是否安装成功</h3><p>命令行输入django-admin</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104002910288-1935152069.png" alt="img"></p>
+<h3 id="5、创建Django项目"><a href="#5、创建Django项目" class="headerlink" title="5、创建Django项目"></a>5、创建Django项目</h3><p>创建django项目有两种方式，一种是通过命令行的形式，一种是通过pycharm的方式，下面先介绍命令行形式创建</p>
+<h4 id="1）命令行创建django"><a href="#1）命令行创建django" class="headerlink" title="1）命令行创建django"></a>1）命令行创建django</h4><ul>
+<li><p>创建django项目</p>
+</li>
+<li><p>1.通过命令行创建 1.创建django项目 <strong>django-admin startproject mysite(项目名)</strong> 效果:创建一个mysite的文件夹</p>
+<p>mysite文件夹下的内容文件 </p>
+</li>
+<li><p>-mysite </p>
+<ul>
+<li>　　–<strong>init</strong>.py </li>
+<li>–settings.py   #项目配置文件，包括数据库的使用和静态文件的配置 </li>
+<li>–urls.py     #路由与视图函数对应的关系（项目的总路由） </li>
+<li>–wsgi.py </li>
+<li>-manage.py   # django的入口文件</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意：</strong>通过命令行创建时如果不在C盘创建，例如在D盘创建，可以通过D:回车来改变根目录，这样创建的项目就在D盘中了</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003040067-470205153.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003056464-101412825.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003108336-324354699.png" alt="img"></p>
+<p> 启动django项目</p>
+<p><strong>注意：</strong>通过cd mysite先切换到项目目录下</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003145574-430313827.png" alt="img"></p>
+<p><strong>启动项目命令行：</strong></p>
+<p><strong>python manage.py runserver # django默认的端口号是8000</strong></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003228893-1583592937.png" alt="img"></p>
+<p><strong>注意：版本不兼容可能会出现一下错误</strong></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003302186-15176844.png" alt="img"></p>
+<p> 修改方法</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003322276-1594059379.png" alt="img"></p>
+<ul>
+<li><p>尝试访问一次</p>
+<p>将ip地址和断口号填写到浏览器就能够第一次访问django框架展示的欢迎页面</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003434324-436108267.png" alt="img"></p>
+</li>
+<li><p>开始创建具有独立功能的app</p>
+<p><strong>创建app的命令行</strong></p>
+<p><strong>python manage.py startapp app01</strong></p>
+<p>app01  </p>
+</li>
+<li><p>–migrations   文件夹 数据库改动记录（日志）</p>
+</li>
+<li><p>​      —-<strong>init</strong>.py</p>
+</li>
+<li><p>–<strong>init</strong>.py</p>
+</li>
+<li><p>–admin.py   django后台管理</p>
+</li>
+<li><p>–apps.py    注册app相关</p>
+</li>
+<li><p>–models.py   模型类(ORM)</p>
+</li>
+<li><p>–tests.py     测试文件（写一些测试代码）</p>
+</li>
+<li><p>–views.py    视图函数(<strong><em>\</em></strong>)</p>
+</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003711708-1350482172.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003726519-1706850418.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003730506-2004988885.png" alt="img"></p>
+<p>通过在8000端口后面加上/admin回车可以访问admin界面</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003804200-87188063.png" alt="img"></p>
+<p>解释：什么叫app</p>
+<p>app指的是application(应用)，不是我们手机上所使用的那种app，django其实是一个专注于开发app的web框架，一个空的django项目就类似于是一所大学，app就类似于大学里面的各个学院，每个app其实就类似于不同的功能模块 例如一个购物网站，里面有不同的比如用户模块，订单相关的模块，投诉相关的模块，每个功能模块就有一个与之相关的app，不同的模块推荐使用不同的app去开发，并且django支持多app</p>
+<p>注意：1.app命名应该做到见名知意(若实在是一时想不起名字可以用数字代替一下)</p>
+<p>2.刚才启动的时候文件夹会多一个db.sqlite3的小数据库</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003826237-919442335.png" alt="img"></p>
+<h4 id="2）pycharm创建django"><a href="#2）pycharm创建django" class="headerlink" title="2）pycharm创建django"></a>2）pycharm创建django</h4><p>第一步：打开pycharm，进行创建<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003917311-1131960917.png" alt="img"></p>
+<p> 不要选择虚拟环境</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104003928491-1074359922.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004000526-1155275885.png" alt="img"></p>
+<p> 在刚才修改文件路径名之后成功创建项目<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004029658-660785568.png" alt="img"></p>
+<p>第二步：启动项目</p>
+<p>在控制台输入python manage.py runserver即可启动，也可以通过快捷方式点击</p>
+<p>python manage.py runserver host：post 这样可以指定ip和端口，不写默认本地和8000端口</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004053072-2036981515.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004105131-972120030.png" alt="img"></p>
+<p> 补充：若开启多个项目发现端口不够用或者无法找到那个快捷启动按钮，可以通过下面这个方法来解决<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004131347-1436438719.png" alt="img"></p>
+<p> 修改端口号<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004149961-1337181819.png" alt="img"></p>
+<p> 添加快捷启动服务<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004234939-927139874.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004247811-893053592.png" alt="img"></p>
+<p> 简化命令行命令</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004319509-370517111.png" alt="img"></p>
+<p> 例如可以简化命令行创建app<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004339299-1887111957.png" alt="img"></p>
+<p> 第三步：修改配置</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004359436-848671848.png" alt="img"></p>
+<p> 注册app（创建app后一定要去注册，）<img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004418507-1355598684.png" alt="img"></p>
+<p> 中间件</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004431179-865797680.png" alt="img"></p>
+<p> templates配置问题</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004558986-1004010739.png" alt="img"></p>
+<p> 手动添加环境变量</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004621699-823945830.png" alt="img"></p>
+<p> 数据库的绑定</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004651558-1941720332.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004706265-1674524839.png" alt="img"></p>
+<p><strong>注意：\</strong>命令行创建模式和pycharm创建模式的对比**</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">1.使用命令行创建的django项目是不会自动创建templates摸版本文件夹 你只能自己手动创建</span><br><span class="line">2.命令行创建的django项目不但没有templates文件夹配置文件中也没有填写路径，需要自己手动添加os.path.join(BASE_DIR, &#39;templates&#39;)</span><br><span class="line">而pycharm创建的会自动添加templates文件夹配置文件和路径以及app注册</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>容易犯的错误</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.代码修改了始终没有效果</span><br><span class="line">    1.在同一个端口起了多个服务 一直跑的是最开始的那个服务</span><br><span class="line">    2.浏览器缓存问题</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104004812045-136250503.png" alt="img"></p>
+<h3 id="8、小白必会三板斧"><a href="#8、小白必会三板斧" class="headerlink" title="8、小白必会三板斧"></a>8、小白必会三板斧</h3><p>1.HttpResponse</p>
+<p>2.render</p>
+<p>3.redirect</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005039446-505749702.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005055622-1326847110.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005118690-1338742957.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005202338-596677413.png" alt="img"></p>
+<p> HttpResponse</p>
+<p>　　　　 返回字符串</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005227355-966040618.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005249578-1857938280.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005306103-1853226920.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005327878-1019827210.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005339388-1356468246.png" alt="img"></p>
+<p> <img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005347086-5303542.png" alt="img"></p>
+<p> render</p>
+<p>　　　　 返回html页面 并且可以给html页面传数据</p>
+<p>　　　　 模板的渲染(将数据在后端按照模板语法放入html对应的位置)</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200104005441441-1879747278.png" alt="img"></p>
+<p> redirect</p>
+<p>重定向</p>
+<p>补充：return redirect(‘url’）里面的url可以填写别人的网站全路径，也可以填写自己网站的url后缀名</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/05/Django%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B%E5%92%8C%E5%AE%89%E8%A3%85/" data-id="ckd3djzas00000out4t557tvl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/" rel="tag">Django</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">并发编程基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">网络和并发编程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/MySQL/" style="font-size: 16.67px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 13.33px;">网络和并发编程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/05/Django%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B%E5%92%8C%E5%AE%89%E8%A3%85/">Django框架简介和安装</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/29/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">并发编程基础</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/25/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">网络编程基础</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/">MySQL数据库的隔离级别和锁</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/16/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">MySQL数据库的基本操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
