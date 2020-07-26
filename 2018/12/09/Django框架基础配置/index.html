@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Django框架基础配置 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="下面全部以登陆功能为例来演示这些功能 一：静态文件的配置 什么是静态文件？  网站所使用的提前写好的，后面不在进行修改的配置文件，例如 css文件； js文件； 常用的第三方组件： bootstrap sweetalert fontawesome  如何配置静态文件 网站所用到的html文件统一放到templates文件夹中  那针对网站所使用到的静态文件也应该单独找一个文件夹来存储  这个文件夹">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django框架基础配置">
+<meta property="og:url" content="http://yoursite.com/2018/12/09/Django%E6%A1%86%E6%9E%B6%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="下面全部以登陆功能为例来演示这些功能 一：静态文件的配置 什么是静态文件？  网站所使用的提前写好的，后面不在进行修改的配置文件，例如 css文件； js文件； 常用的第三方组件： bootstrap sweetalert fontawesome  如何配置静态文件 网站所用到的html文件统一放到templates文件夹中  那针对网站所使用到的静态文件也应该单独找一个文件夹来存储  这个文件夹">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135357955-824414350.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135409559-471794405.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135454476-1136184019.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135505610-212321043.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135520284-832804882.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135534677-502661780.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135545364-596887061.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135551781-706644850.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135604696-594190163.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135650630-1922126841.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135816140-1493964605.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135828638-798318562.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135840328-83318567.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135845130-1026936053.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135851256-512479350.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135858803-1505346103.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135905802-2078485201.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135913705-323570701.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135922691-1432970650.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135931009-387281956.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140025505-1942172736.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140033161-1078043982.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140042541-113136339.png">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140047600-333526206.png">
+<meta property="article:published_time" content="2018-12-08T17:50:03.000Z">
+<meta property="article:modified_time" content="2020-07-26T18:11:19.988Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="Django">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135357955-824414350.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Django框架基础配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/09/Django%E6%A1%86%E6%9E%B6%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2018-12-08T17:50:03.000Z" itemprop="datePublished">2018-12-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Django框架基础配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下面全部以登陆功能为例来演示这些功能</p>
+<h2 id="一：静态文件的配置"><a href="#一：静态文件的配置" class="headerlink" title="一：静态文件的配置"></a>一：静态文件的配置</h2><ul>
+<li>什么是静态文件？</li>
+</ul>
+<p>网站所使用的提前写好的，后面不在进行修改的配置文件，例如</p>
+<p>css文件；</p>
+<p>js文件；</p>
+<p>常用的第三方组件：</p>
+<p>bootstrap</p>
+<p>sweetalert</p>
+<p>fontawesome</p>
+<ul>
+<li><p>如何配置静态文件</p>
+<p>网站所用到的html文件统一放到templates文件夹中  那针对网站所使用到的静态文件也应该单独找一个文件夹来存储  这个文件夹 默认情况下都叫static  注意：该文件夹需要手动自己创建  并且该文件夹内部通常是以下结构  static  -css  网站所用到的所有的css文件  -js  网站所用到的所有的js文件  -image  网站所用到的所有的图片文件  第三方文件</p>
+</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135357955-824414350.png" alt="img"></p>
+<p>这样引入会发现无法正常引用</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135409559-471794405.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135454476-1136184019.png" alt="img"></p>
+<p>补充：用户在浏览器窗口之所以输入网址能够拿到对应的资源 是因为后端开设相关的资源</p>
+<p>那如何解决找不到资源的问题呢？</p>
+<ul>
+<li><p>配置django静态文件</p>
+<p>django在配置文件中给你暴露了配置文件的配置信息 你只需要按照固定的写法书写即可暴露对应的静态文件资源</p>
+</li>
+</ul>
+<p>第一步：找到位置</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135505610-212321043.png" alt="img"></p>
+<p>第二步：书写配置代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STATICFILES_DIRS &#x3D; [os.path.join(BASE_DIR, &#39;static&#39;)]</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135520284-832804882.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135534677-502661780.png" alt="img"></p>
+<ul>
+<li><p>如何解决动态绑定问题</p>
+<p>什么是接口前缀，通俗的说配置中的staic就是类似一个令牌，想访问资源必须带有staic接口前缀（可以修改，但是必须与配置中的一样）,只有接口前缀（令牌）相同，才会拿着后面的路径依次去配置文件夹中的STATICEFILES_DIRS中的文件夹路径下面列表中的每一个文件夹下查找对应的资源，顺序是从上往下依次查找 如果都没有找到才会报错</p>
+</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135545364-596887061.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135551781-706644850.png" alt="img"></p>
+<p>加入已经写好了一千个html页面，每一个页面都用了static接口前缀，然后有个需求，配置中的static接口前缀需要修改，如何快速解决将那一千个页面的接口前缀也修改了，这就需要用到接口前缀了</p>
+<p>只需要添加下面几句代码，不论你接口前缀怎么修改，都会保持一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% load static %&#125;  &lt;!--加一行这个--&gt;</span><br><span class="line">    &lt;link rel&#x3D;&quot;stylesheet&quot; href&#x3D;&quot;&#123;% static &#39;bootstrap-3.3.7-dist&#x2F;css&#x2F;bootstrap.min.css&#39; %&#125;&quot;&gt;  &lt;!--在导入百分号和static即可动态绑定接口前缀--&gt;</span><br><span class="line">    &lt;script src&#x3D;&quot;&#123;% static &#39;bootstrap-3.3.7-dist&#x2F;js&#x2F;bootstrap.min.js&#39; %&#125;&quot;&gt;&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二-快速写一个简单的登陆页面"><a href="#二-快速写一个简单的登陆页面" class="headerlink" title="二.快速写一个简单的登陆页面"></a>二.快速写一个简单的登陆页面</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class&#x3D;&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;row&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;col-md-8 col-md-offset-2&quot;&gt;</span><br><span class="line">            &lt;h2 class&#x3D;&quot;text-center&quot;&gt;登录&lt;&#x2F;h2&gt;</span><br><span class="line">            &lt;form action&#x3D;&quot;&quot; method&#x3D;&quot;post&quot;&gt;</span><br><span class="line">                &lt;p&gt;username:&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">                &lt;p&gt;password:&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">                &lt;input type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-success &quot;&gt;</span><br><span class="line">            &lt;&#x2F;form&gt;</span><br><span class="line">        &lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">form表单</span><br><span class="line">    form表单默认是以get请求提交数据的(get请求会在url后面携带明文数据)</span><br><span class="line">        http:&#x2F;&#x2F;127.0.0.1:8000&#x2F;login&#x2F;?username&#x3D;admin&amp;password&#x3D;123</span><br><span class="line">    action</span><br><span class="line">        1.不写 默认朝当前地址提交数据</span><br><span class="line">        2.全路径</span><br><span class="line">        3.后缀(&#x2F;index)</span><br><span class="line">    提交post请求的时候 需要先去配置文件中的中间件注释掉一行，因为中间件类似于保安，会检查请求和响应的数据是否安全（后面中间件有重点介绍）</span><br><span class="line">        MIDDLEWARE &#x3D; [</span><br><span class="line">            &#39;django.middleware.security.SecurityMiddleware&#39;,</span><br><span class="line">            &#39;django.contrib.sessions.middleware.SessionMiddleware&#39;,</span><br><span class="line">            &#39;django.middleware.common.CommonMiddleware&#39;,</span><br><span class="line">            # &#39;django.middleware.csrf.CsrfViewMiddleware&#39;,</span><br><span class="line">            &#39;django.contrib.auth.middleware.AuthenticationMiddleware&#39;,</span><br><span class="line">            &#39;django.contrib.messages.middleware.MessageMiddleware&#39;,</span><br><span class="line">            &#39;django.middleware.clickjacking.XFrameOptionsMiddleware&#39;,</span><br><span class="line">        ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="三-request方法"><a href="#三-request方法" class="headerlink" title="三.request方法"></a>三.request方法</h2><p>1).同一个视图函数可以处理不同的请求</p>
+<p>eg: get请求来 应该只需要返回一个html文件 post请求来 应该获取用户提交的数据 然后做进一步处理 因此必须要能够判断出当前请求到底是什么请求</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135604696-594190163.png" alt="img"></p>
+<p>request是一个对象，一个get请求就有下面这么多的方法和属性</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135650630-1922126841.png" alt="img"></p>
+<p>2).method方法</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135816140-1493964605.png" alt="img"></p>
+<p><strong>总结：method可以获取前端的请求方法，并且是一个大写的GET或POST字符串</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通常情况下针对不同的请求应该做不同的处理 而一般情况下get请求次数要远远多于post请求</span><br><span class="line">所以我们应该针对非get请求作出逻辑判断 将get请求直接写在函数体内而不做判断</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">login</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># 要给用户返回一个登陆页面</span></span><br><span class="line">    <span class="comment"># print('我被触发了')</span></span><br><span class="line">    <span class="comment"># 获取前端请求方式</span></span><br><span class="line">    <span class="comment"># if request.method == 'GET':</span></span><br><span class="line">    <span class="comment">#     # get逻辑</span></span><br><span class="line">    <span class="comment">#     return render(request, 'login.html')</span></span><br><span class="line">    <span class="comment"># elif request.method == 'POST':</span></span><br><span class="line">    <span class="comment">#     # post逻辑</span></span><br><span class="line">    <span class="comment">#     # print(request.method,type(request.method))  # GET &lt;class 'str'&gt;  POST &lt;class 'str'&gt;</span></span><br><span class="line">    <span class="comment">#     # 获取数据 之后...</span></span><br><span class="line">    <span class="comment">#     return HttpResponse('收到了你的数据 马上处理')</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    为了减少代码的层级:一般情况下视图函数处理get请求较多 所以可以直接再函数体内先写get请求对应的逻辑</span></span><br><span class="line"><span class="string">    将其他请求利用request.method做出区分</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">'收到了'</span>)</span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'login.html'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3).request.POST</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print(request.POST)  </span><br><span class="line"># 获取post请求携带的数据 &lt;QueryDict: &#123;&#39;username&#39;: [&#39;admin&#39;], &#39;password&#39;: [&#39;123&#39;]&#125;&gt; </span><br><span class="line"># 可以把它当成是一个大字典</span><br><span class="line"></span><br><span class="line"># 注意，总这些键是由前端传的name属性决定的</span><br><span class="line">&lt;p&gt;username:&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line"># 若没有name属性，即时在前端input框内提交了数据，也不会朝后端发送这个数据</span><br></pre></td></tr></table></figure>
+
+<p><strong>因此：在input框中一定要有name属性</strong></p>
+<p>4).如何获取post里面的数据（get和getlist）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"># 例如：在前端页面中有以下三个input框需要输入数据传入后端</span><br><span class="line">&lt;p&gt;username:&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;p&gt;username:&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot; class&#x3D;&quot;form-control&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line"># 并且有两个相同的name属性</span><br><span class="line">&lt;p&gt;password:&lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;password&quot; class&#x3D;&quot;form-control&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line"># 可通过get的方式</span><br><span class="line">print(request.POST)</span><br><span class="line">username &#x3D; request.POST.get(&#39;usernamr&#39;)</span><br><span class="line">password &#x3D; request.POST.get(&#39;password&#39;)</span><br><span class="line">print(username, type(usernsme))</span><br><span class="line">print(password, type(password))</span><br><span class="line"></span><br><span class="line">&#39;&#39;&#39;</span><br><span class="line">&lt;QueryDict: &#123;&#39;username&#39;: [&#39;admin&#39;, &#39;jason&#39;], &#39;password&#39;: [&#39;123&#39;]&#125;&gt;</span><br><span class="line">jason &lt;class &#39;str&#39;&gt;</span><br><span class="line">123 &lt;class &#39;str&#39;&gt;</span><br><span class="line">&#39;&#39;&#39;</span><br><span class="line">#相同的name属性得到的是一个字典套集合的形式，</span><br><span class="line"></span><br><span class="line"># 通过结果我们可以发现数据都是字符串，如果数据是一个列表，那么get获取数据只能只是列表最后一个数据，不能全部获取</span><br><span class="line"></span><br><span class="line">username &#x3D; request.POST.getlist(&#39;usernamr&#39;)</span><br><span class="line"># 通过getlist的方式可以获取整个列表</span><br></pre></td></tr></table></figure>
+
+<p>5)如何获取GET请求的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GET请求和POST请求是一样的，只不过GET请求获取的是url后面携带的数据：url?xxx&#x3D;xxx&amp;yyy&#x3D;yyy</span><br><span class="line"> # 获取符合get请求携带参数特点的数据  url?xxx&#x3D;xxx&amp;yyy&#x3D;yyy</span><br><span class="line"> print(request.GET)  </span><br><span class="line"># &lt;QueryDict: &#123;&#39;username&#39;: [&#39;admin&#39;], &#39;password&#39;: [&#39;123&#39;]&#125;&gt;</span><br><span class="line">print(request.GET.get(&#39;username&#39;),type(request.GET.get(&#39;username&#39;)))</span><br><span class="line"># admin &lt;class ’str‘&gt;</span><br><span class="line">print(request.GET.getlist(&#39;password&#39;),type(request.GET.getlist(&#39;password&#39;)))</span><br><span class="line"># [&#39;123&#39;] &lt;class &#39;list&#39;&gt;</span><br><span class="line"></span><br><span class="line">只要符合这个url?xxx&#x3D;xxx&amp;yyy&#x3D;yyy格式，request.GET都能获取数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="四-链接数据库"><a href="#四-链接数据库" class="headerlink" title="四.链接数据库"></a>四.链接数据库</h2><ul>
+<li>先找到database</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135828638-798318562.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135840328-83318567.png" alt="img"></p>
+<ul>
+<li>找到对应的数据库</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135845130-1026936053.png" alt="img"></p>
+<ul>
+<li>下载驱动尝试链接数据库</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135851256-512479350.png" alt="img"></p>
+<ul>
+<li>链接成功后就能找到数据库表了</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135858803-1505346103.png" alt="img"></p>
+<ul>
+<li>一些简单操作（注意：pycharm由于功能太多，所以不能做到面面俱到）</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135905802-2078485201.png" alt="img"></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135913705-323570701.png" alt="img"></p>
+<h2 id="五-Django链接数据库"><a href="#五-Django链接数据库" class="headerlink" title="五.Django链接数据库"></a>五.Django链接数据库</h2><ul>
+<li>先去配置文件中配置相关参数</li>
+</ul>
+<p>在settings中找到下面这个配置信息，进行修改</p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135922691-1432970650.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DATABASES &#x3D; &#123;</span><br><span class="line">    &#39;default&#39;: &#123;</span><br><span class="line">        &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,  # 数据库类别</span><br><span class="line">        &#39;NAME&#39;: &#39;day49&#39;,  # 库的名字</span><br><span class="line">        &#39;HOST&#39;: &#39;127.0.0.1&#39;,</span><br><span class="line">        &#39;PORT&#39;: 3306,</span><br><span class="line">        &#39;USER&#39;: &#39;root&#39;,</span><br><span class="line">        &#39;PASSWORD&#39;: &#39;123&#39;,</span><br><span class="line">        &#39;CHARSET&#39;: &#39;utf8&#39;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>下面的错误表示Djiango使用的是mysqldb这个模块，这个版本是不兼容的，需要切换成pymysql模块</strong></p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204135931009-387281956.png" alt="img"></p>
+<ul>
+<li>在项目名或者应用名下面的__ init __.py文件中告诉django使用pymysql链接数据库而不是用默认的mysqldb</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import pymysql</span><br><span class="line">pymysql.install_as_MYSQLdb()</span><br></pre></td></tr></table></figure>
+
+<h2 id="六-django中的ORM"><a href="#六-django中的ORM" class="headerlink" title="六.django中的ORM"></a>六.django中的ORM</h2><p>注意：django不能自动创建库，需要自己手动创建，但是可以自动创建表</p>
+<p>orm对应关系如下</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">表名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">属性名</td>
+<td align="center">字段值</td>
+</tr>
+<tr>
+<td align="center">对象</td>
+<td align="center">记录</td>
+</tr>
+</tbody></table>
+<p>作用:能够让一个不会数据库操作的小白也能够通过Python面向对象语法 句点符来简单快捷的操作数据</p>
+<ul>
+<li>首先需要先去对应的应用下的models.py中书写你的模型类</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class User(models.Model):</span><br><span class="line">        # id int primary key auto_increment</span><br><span class="line">        id &#x3D; models.AutoField(primary_key&#x3D;True)</span><br><span class="line">        # name varchar(32)</span><br><span class="line">        name &#x3D; models.CharField(max_length&#x3D;32)</span><br><span class="line">        # password int</span><br><span class="line">        password &#x3D; models.IntegerField()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行数据库迁移命令(就是将models.py中建立的类同步到数据库中)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.python3 manage.py makemigrations  # 仅仅是将你对数据库的改动记录到某个小本本上(migrations文件夹)</span><br><span class="line"></span><br><span class="line">2.python3 manage.py migrate  # 将改动真正的同步到数据库中</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行第一步会产生下面的效果</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140025505-1942172736.png" alt="img"></p>
+<ul>
+<li>执行第二步之后</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140033161-1078043982.png" alt="img"> </p>
+<p><strong>补充知识点：</strong></p>
+<ul>
+<li>快捷命令输入</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140042541-113136339.png" alt="img"> </p>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202002/1843708-20200204140047600-333526206.png" alt="img"></p>
+<ul>
+<li>如果主键名为id，可以不设置，django默认设置主键，如果设置了，以自定义的id为主键</li>
+</ul>
+<h2 id="七-如何在django中进行数据库字段的增删改查"><a href="#七-如何在django中进行数据库字段的增删改查" class="headerlink" title="七.如何在django中进行数据库字段的增删改查"></a>七.如何在django中进行数据库字段的增删改查</h2><ul>
+<li>字段的增</li>
+</ul>
+<p>可以直接在models.py中进行字段的增，但是注意有两种方式（因为数据库中可能已经存入各种数据了，新添加一个字段，那些已经有数据的字段需要进行修改）</p>
+<p>第一种是设置默认值，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">email &#x3D; models.EmailField(default&#x3D;&#39;123@qq.com&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>第二种是允许新设置的字段可以为空，例如(CharField需要设置max_length)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hobby &#x3D; models.CharField(null&#x3D;True,max_length&#x3D;32)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段的查改删都可以通过直接操作models.py文件中的类属性</li>
+</ul>
+<p>唯一需要注意的就是凡是涉及到字段的操作都需要进行数据库迁移命令，否则操作无效</p>
+<h2 id="八-如何在django中进行数据库记录的增删改查"><a href="#八-如何在django中进行数据库记录的增删改查" class="headerlink" title="八.如何在django中进行数据库记录的增删改查"></a>八.如何在django中进行数据库记录的增删改查</h2><ul>
+<li>查</li>
+</ul>
+<p>第一步，在需要进行数据库信息查询的文件中导入models文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from app01 import models</span><br></pre></td></tr></table></figure>
+
+<p>第二步，通过filter的方法可以拿到所需要的数据列表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">res &#x3D; models.User.objects.filter(name&#x3D;username)  # 该方法返回的结果你可以看成是一个列表套数据对象的形式，其中User表示表名，name表示字段名，后一个username是前端返回来的数据，即查询条件</span><br><span class="line">print(res) # &lt;QuerySet [&lt;User: User object&gt;]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>第三步，该数据列表支持索引取值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user_obj &#x3D; res[0]  # QuerySet支持索引取值但是不支持负数 并且也不推荐直接索引取值</span><br><span class="line">user_obj &#x3D; res.first() # 索引和first（）这两种方法都可以</span><br><span class="line"># print(user_obj.name,user_obj.password)</span><br></pre></td></tr></table></figure>
+
+<p>补充：当查询条件不存在的时候，是一个queryset[]空列表，不会报错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">filter括号内直接放多个关键字参数 并且多个关键字参数之间是and关系</span><br><span class="line">res &#x3D; models.User.objects.filter(username&#x3D;&#39;jason&#39;,password&#x3D;&#39;123&#39;)  # select * from user where username&#x3D;&#39;jason&#39; and password&#x3D;&#39;123&#39;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查所有数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1.filter() 括号内不写拿所有</span><br><span class="line">&lt;QuerySet [&lt;User: jason&gt;, &lt;User: egon&gt;, &lt;User: sean&gt;, &lt;User: admin&gt;]&gt;</span><br><span class="line"></span><br><span class="line">2.all() 查询所有数据</span><br><span class="line">&lt;QuerySet [&lt;User: jason&gt;, &lt;User: egon&gt;, &lt;User: sean&gt;, &lt;User: admin&gt;]&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>增</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1.create()</span><br><span class="line">    user_obj &#x3D; models.User.objects.create(name&#x3D;username,password&#x3D;password)</span><br><span class="line">    print(user_obj,user_obj.name)</span><br><span class="line">    # 该方法有返回值 返回值就是当前被创建的对象本身</span><br><span class="line">2.对象的绑定方法</span><br><span class="line">    # 1 先生成一个User对象</span><br><span class="line">    user_obj &#x3D; models.User(name&#x3D;username,password&#x3D;password)</span><br><span class="line">    # 2 调用对象的绑定方法</span><br><span class="line">    user_obj.save()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>删</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 简单的删除逻辑</span><br><span class="line"># 用户通过点击删除键就能删除数据，需要获取指定数据的id，通过这个id来操作数据的删除</span><br><span class="line">第一步：在前端删除键上可以绑定数据的id，这样发送get请求就会带上id</span><br><span class="line"></span><br><span class="line"> &lt;a href&#x3D;&quot;&#x2F;delete_user&#x2F;?delete_id&#x3D;&#123;&#123; user_obj.id &#125;&#125;&quot; class&#x3D;&quot;btn btn-danger btn-xs&quot;&gt;删除&lt;&#x2F;a&gt;</span><br><span class="line">    </span><br><span class="line">第二步：后端通过id来获取数据</span><br><span class="line"></span><br><span class="line">def del_user(request):</span><br><span class="line">    # 如何获取用户想逃删除的数据id</span><br><span class="line">    delete_id &#x3D; request.GET.get(&quot;delete_id&quot;)</span><br><span class="line">    # 直接根据id删除数据</span><br><span class="line">    models.User.objects.filter(id&#x3D;delete_id).delete()  # 将filter过滤出来的数据全部删除</span><br><span class="line">    # 重定向到展示页</span><br><span class="line">    return redirect(&#39;&#x2F;home&#x2F;&#39;)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">改和删前面基本一致</span><br><span class="line">后面有两种方法</span><br><span class="line">def edit_user(request):</span><br><span class="line">    # 获取用户想要修改的数据id值</span><br><span class="line">    edit_id &#x3D; request.GET.get(&#39;edit_id&#39;)</span><br><span class="line">    if request.method &#x3D;&#x3D; &#39;POST&#39;:</span><br><span class="line">        # 获取用户修改之后的用户名和密码</span><br><span class="line">        username &#x3D; request.POST.get(&#39;username&#39;)</span><br><span class="line">        password &#x3D; request.POST.get(&#39;password&#39;)</span><br><span class="line">        # 修改数据</span><br><span class="line">        # 方式1(推荐)</span><br><span class="line">        # models.User.objects.filter(id&#x3D;edit_id).update(name&#x3D;username,password&#x3D;password)</span><br><span class="line">        # 方式2(了解)</span><br><span class="line">        # 1 先获取数据对象</span><br><span class="line">        edit_obj &#x3D; models.User.objects.filter(id&#x3D;edit_id).first()</span><br><span class="line">        # 2 再修改对象属性</span><br><span class="line">        edit_obj.name &#x3D; username</span><br><span class="line">        edit_obj.password &#x3D; password</span><br><span class="line">        # 3 调用对象的绑定方法保存</span><br><span class="line">        edit_obj.save()</span><br><span class="line">        # 再次跳转到数据展示页</span><br><span class="line">        return redirect(&#39;&#x2F;home&#x2F;&#39;)</span><br><span class="line">    # 根据id获取数据对象 并且展示到html页面上</span><br><span class="line">    edit_obj &#x3D; models.User.objects.filter(id&#x3D;edit_id).first()</span><br><span class="line"></span><br><span class="line">    return render(request,&#39;edit_user.html&#39;,&#123;&#39;edit_obj&#39;:edit_obj&#125;)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/09/Django%E6%A1%86%E6%9E%B6%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" data-id="ckd3ewqb20001qwut9k0v29aq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/" rel="tag">Django</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/15/Django%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E5%B1%82%E5%92%8C%E8%A7%86%E5%9B%BE%E5%B1%82/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Django框架路由层和视图层
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/05/Django%E6%A1%86%E6%9E%B6%E7%AE%80%E4%BB%8B%E5%92%8C%E5%AE%89%E8%A3%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Django框架简介和安装</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">网络和并发编程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Django/" style="font-size: 16.67px;">Django</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">网络和并发编程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/16/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E6%9D%BF%E5%B1%82/">Django框架模板层</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/02/Django%E6%A1%86%E6%9E%B6%E4%B9%8BAjax/">Django框架之Ajax</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/27/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%B8%B8%E7%94%A8%E5%AD%97%E6%AE%B5%E5%92%8C%E4%BA%8B%E7%89%A9%E6%93%8D%E4%BD%9C/">Django框架模型层常用字段和事物操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/19/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%92%8CORM/">Django框架模型层和ORM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/Django%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E5%B1%82%E5%92%8C%E8%A7%86%E5%9B%BE%E5%B1%82/">Django框架路由层和视图层</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

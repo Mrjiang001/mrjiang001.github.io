@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Django框架模型层常用字段和事物操作 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一.models中常用的字段及参数常用字段AutoField int自增列，必须填入参数 primary_key&#x3D;True。当model中如果没有自增列，则自动会创建一个列名为id的列。 IntegerField 一个整数类型,范围在 -2147483648 to 2147483647。(一般不用它来存手机号（自带正负号导致位数不够)，直接用字符串存，) CharField 字符类型，必须提供ma">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django框架模型层常用字段和事物操作">
+<meta property="og:url" content="http://yoursite.com/2018/12/27/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%B8%B8%E7%94%A8%E5%AD%97%E6%AE%B5%E5%92%8C%E4%BA%8B%E7%89%A9%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="一.models中常用的字段及参数常用字段AutoField int自增列，必须填入参数 primary_key&#x3D;True。当model中如果没有自增列，则自动会创建一个列名为id的列。 IntegerField 一个整数类型,范围在 -2147483648 to 2147483647。(一般不用它来存手机号（自带正负号导致位数不够)，直接用字符串存，) CharField 字符类型，必须提供ma">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200109212854513-1453222851.png">
+<meta property="article:published_time" content="2018-12-27T13:12:59.000Z">
+<meta property="article:modified_time" content="2020-07-26T18:16:16.294Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200109212854513-1453222851.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Django框架模型层常用字段和事物操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/27/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%B8%B8%E7%94%A8%E5%AD%97%E6%AE%B5%E5%92%8C%E4%BA%8B%E7%89%A9%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2018-12-27T13:12:59.000Z" itemprop="datePublished">2018-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Django框架模型层常用字段和事物操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一-models中常用的字段及参数"><a href="#一-models中常用的字段及参数" class="headerlink" title="一.models中常用的字段及参数"></a>一.models中常用的字段及参数</h1><h2 id="常用字段"><a href="#常用字段" class="headerlink" title="常用字段"></a>常用字段</h2><p><strong>AutoField</strong></p>
+<p>int自增列，必须填入参数 primary_key=True。当model中如果没有自增列，则自动会创建一个列名为id的列。</p>
+<p><strong>IntegerField</strong></p>
+<p>一个整数类型,范围在 -2147483648 to 2147483647。(一般不用它来存手机号（自带正负号导致位数不够)，直接用字符串存，)</p>
+<p><strong>CharField</strong></p>
+<p>字符类型，必须提供max_length参数， max_length表示字符长度。</p>
+<p>补充注意： 这里需要知道的是Django中的CharField对应的MySQL数据库中的varchar类型，没有设置对应char类型的字段，但是Django允许我们自定义新的字段</p>
+<p>如何自定义char字段类型</p>
+<ul>
+<li>大胆推测，字段是不是类</li>
+</ul>
+<p><img src="https://img2018.cnblogs.com/i-beta/1843708/202001/1843708-20200109212854513-1453222851.png" alt="img"></p>
+<ul>
+<li>自己根据源码写类似的Char字段</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> 1 # 在models.py文件下创建自己的Char字段</span><br><span class="line"> 2 # 导入模块</span><br><span class="line"> 3 from django.db.models import Field</span><br><span class="line"> 4 </span><br><span class="line"> 5 # 自定义继承field的Char类型字段</span><br><span class="line"> 6 class RealCharField(Fied)</span><br><span class="line"> 7     # 也需要长度设置</span><br><span class="line"> 8     def __init__(self, max_length, *args, **kwargs)</span><br><span class="line"> 9         self.max_length &#x3D; max_length</span><br><span class="line">10     # 拦截父类的方法，操作完之后利用super调用父类的方法，让其带着数据再回去</span><br><span class="line">11         super().__init__(max_length&#x3D;max_length,*args,**kwargs)</span><br><span class="line">12     def db_type(self, connection):</span><br><span class="line">13         return &#39;char(%s)&#39;%self.max_length</span><br><span class="line">14</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 #上面已经写好了自定义Char字段</span><br><span class="line">2 </span><br><span class="line">3 # 在models.py中直接引用我们设置好的models就可以了</span><br><span class="line">4 class Movie(models.Model):</span><br><span class="line">5     testfield &#x3D; RealCharField(max_length&#x3D;32, null&#x3D;True)</span><br><span class="line">6 </span><br><span class="line">7 # 这样在通过数据库迁移命令就可以导入数据库了</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line">  1 AutoField(Field)</span><br><span class="line">  2         - int自增列，必须填入参数 primary_key&#x3D;True</span><br><span class="line">  3 </span><br><span class="line">  4     BigAutoField(AutoField)</span><br><span class="line">  5         - bigint自增列，必须填入参数 primary_key&#x3D;True(值超过十位数可以用的字段)</span><br><span class="line">  6 </span><br><span class="line">  7         注：当model中如果没有自增列，则自动会创建一个列名为id的列 </span><br><span class="line">  8         from django.db import models</span><br><span class="line">  9 </span><br><span class="line"> 10         class UserInfo(models.Model):</span><br><span class="line"> 11             # 自动创建一个列名为id的且为自增的整数列</span><br><span class="line"> 12             username &#x3D; models.CharField(max_length&#x3D;32)</span><br><span class="line"> 13 </span><br><span class="line"> 14         class Group(models.Model):</span><br><span class="line"> 15             # 自定义自增列</span><br><span class="line"> 16             nid &#x3D; models.AutoField(primary_key&#x3D;True)</span><br><span class="line"> 17             name &#x3D; models.CharField(max_length&#x3D;32)</span><br><span class="line"> 18 </span><br><span class="line"> 19     SmallIntegerField(IntegerField):</span><br><span class="line"> 20         - 小整数 -32768 ～ 32767</span><br><span class="line"> 21 </span><br><span class="line"> 22     PositiveSmallIntegerField(PositiveIntegerRelDbTypeMixin, IntegerField)</span><br><span class="line"> 23         - 正小整数(不带符号）) 0 ～ 32767</span><br><span class="line"> 24     IntegerField(Field)</span><br><span class="line"> 25         - 整数列(有符号的) -2147483648 ～ 2147483647</span><br><span class="line"> 26 </span><br><span class="line"> 27     PositiveIntegerField(PositiveIntegerRelDbTypeMixin, IntegerField)</span><br><span class="line"> 28         - 正整数 0 ～ 2147483647</span><br><span class="line"> 29 </span><br><span class="line"> 30     BigIntegerField(IntegerField):</span><br><span class="line"> 31         - 长整型(有符号的) -9223372036854775808 ～ 9223372036854775807</span><br><span class="line"> 32 </span><br><span class="line"> 33     BooleanField(Field)</span><br><span class="line"> 34         - 布尔值类型（给该字段传值，传True对应生成1，传False对应生成0）</span><br><span class="line"> 35 </span><br><span class="line"> 36     NullBooleanField(Field):</span><br><span class="line"> 37         - 可以为空的布尔值</span><br><span class="line"> 38 </span><br><span class="line"> 39     CharField(Field)</span><br><span class="line"> 40         - 字符类型</span><br><span class="line"> 41         - 必须提供max_length参数， max_length表示字符长度</span><br><span class="line"> 42 </span><br><span class="line"> 43     TextField(Field)</span><br><span class="line"> 44         - 文本类型（存储大段文本，图片等）</span><br><span class="line"> 45 </span><br><span class="line"> 46     EmailField(CharField)：</span><br><span class="line"> 47         - 字符串类型，Django Admin以及ModelForm中提供验证机制（用校验组件可以校验必须是邮箱格式）</span><br><span class="line"> 48 </span><br><span class="line"> 49     IPAddressField(Field)</span><br><span class="line"> 50         - 字符串类型，Django Admin以及ModelForm中提供验证 IPV4 机制</span><br><span class="line"> 51 </span><br><span class="line"> 52     GenericIPAddressField(Field)</span><br><span class="line"> 53         - 字符串类型，Django Admin以及ModelForm中提供验证 Ipv4和Ipv6</span><br><span class="line"> 54         - 参数：</span><br><span class="line"> 55             protocol，用于指定Ipv4或Ipv6， &#39;both&#39;,&quot;ipv4&quot;,&quot;ipv6&quot;</span><br><span class="line"> 56             unpack_ipv4， 如果指定为True，则输入::ffff:192.0.2.1时候，可解析为192.0.2.1，开启此功能，需要protocol&#x3D;&quot;both&quot;</span><br><span class="line"> 57 </span><br><span class="line"> 58     URLField(CharField)</span><br><span class="line"> 59         - 字符串类型，Django Admin以及ModelForm中提供验证 URL</span><br><span class="line"> 60 </span><br><span class="line"> 61     SlugField(CharField)</span><br><span class="line"> 62         - 字符串类型，Django Admin以及ModelForm中提供验证支持 字母、数字、下划线、连接符（减号）</span><br><span class="line"> 63 </span><br><span class="line"> 64     CommaSeparatedIntegerField(CharField)</span><br><span class="line"> 65         - 字符串类型，格式必须为逗号分割的数字</span><br><span class="line"> 66 </span><br><span class="line"> 67     UUIDField(Field)</span><br><span class="line"> 68         - 字符串类型，Django Admin以及ModelForm中提供对UUID格式的验证</span><br><span class="line"> 69 </span><br><span class="line"> 70     FilePathField(Field)</span><br><span class="line"> 71         - 字符串，Django Admin以及ModelForm中提供读取文件夹下文件的功能</span><br><span class="line"> 72         - 参数：</span><br><span class="line"> 73                 path,                      文件夹路径</span><br><span class="line"> 74                 match&#x3D;None,                正则匹配</span><br><span class="line"> 75                 recursive&#x3D;False,           递归下面的文件夹</span><br><span class="line"> 76                 allow_files&#x3D;True,          允许文件</span><br><span class="line"> 77                 allo w_folders&#x3D;False,       允许文件夹</span><br><span class="line"> 78 </span><br><span class="line"> 79     FileField(Field)</span><br><span class="line"> 80         - 字符串，路径保存在数据库，文件上传到指定目录</span><br><span class="line"> 81         - 参数：</span><br><span class="line"> 82             upload_to &#x3D; &quot;指定文件路径&quot;      上传文件的保存路径（通过这个参数可以直接自动将数据保存到指定路径）</span><br><span class="line"> 83             storage &#x3D; None      存储组件，默认django.core.files.storage.FileSystemStorage</span><br><span class="line"> 84 </span><br><span class="line"> 85     ImageField(FileField)</span><br><span class="line"> 86         - 字符串，路径保存在数据库，文件上传到指定目录</span><br><span class="line"> 87         - 参数：</span><br><span class="line"> 88             upload_to &#x3D; &quot;&quot;      上传文件的保存路径</span><br><span class="line"> 89             storage &#x3D; None      存储组件，默认django.core.files.storage.FileSystemStorage</span><br><span class="line"> 90             width_field&#x3D;None,   上传图片的高度保存的数据库字段名（字符串）</span><br><span class="line"> 91             height_field&#x3D;None   上传图片的宽度保存的数据库字段名（字符串）</span><br><span class="line"> 92 </span><br><span class="line"> 93     DateTimeField(DateField)</span><br><span class="line"> 94         - 日期+时间格式 YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]</span><br><span class="line"> 95 </span><br><span class="line"> 96     DateField(DateTimeCheckMixin, Field)</span><br><span class="line"> 97         - 日期格式      YYYY-MM-DD</span><br><span class="line"> 98 </span><br><span class="line"> 99     TimeField(DateTimeCheckMixin, Field)</span><br><span class="line">100         - 时间格式      HH:MM[:ss[.uuuuuu]]</span><br><span class="line">101 </span><br><span class="line">102     DurationField(Field)</span><br><span class="line">103         - 长整数，时间间隔，数据库中按照bigint存储，ORM中获取的值为datetime.timedelta类型</span><br><span class="line">104 </span><br><span class="line">105     FloatField(Field)</span><br><span class="line">106         - 浮点型</span><br><span class="line">107 </span><br><span class="line">108     DecimalField(Field)</span><br><span class="line">109         - 10进制小数</span><br><span class="line">110         - 参数：</span><br><span class="line">111             max_digits，小数总长度</span><br><span class="line">112             decimal_places，小数位长度</span><br><span class="line">113 </span><br><span class="line">114     BinaryField(Field)</span><br><span class="line">115         - 二进制类型</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> 1 ORM字段与mysql字段的对应关系 </span><br><span class="line"> 2 </span><br><span class="line"> 3 对应关系：</span><br><span class="line"> 4     &#39;AutoField&#39;: &#39;integer AUTO_INCREMENT&#39;,</span><br><span class="line"> 5     &#39;BigAutoField&#39;: &#39;bigint AUTO_INCREMENT&#39;,</span><br><span class="line"> 6     &#39;BinaryField&#39;: &#39;longblob&#39;,</span><br><span class="line"> 7     &#39;BooleanField&#39;: &#39;bool&#39;,</span><br><span class="line"> 8     &#39;CharField&#39;: &#39;varchar(%(max_length)s)&#39;,</span><br><span class="line"> 9     &#39;CommaSeparatedIntegerField&#39;: &#39;varchar(%(max_length)s)&#39;,</span><br><span class="line">10     &#39;DateField&#39;: &#39;date&#39;,</span><br><span class="line">11     &#39;DateTimeField&#39;: &#39;datetime&#39;,</span><br><span class="line">12     &#39;DecimalField&#39;: &#39;numeric(%(max_digits)s, %(decimal_places)s)&#39;,</span><br><span class="line">13     &#39;DurationField&#39;: &#39;bigint&#39;,</span><br><span class="line">14     &#39;FileField&#39;: &#39;varchar(%(max_length)s)&#39;,</span><br><span class="line">15     &#39;FilePathField&#39;: &#39;varchar(%(max_length)s)&#39;,</span><br><span class="line">16     &#39;FloatField&#39;: &#39;double precision&#39;,</span><br><span class="line">17     &#39;IntegerField&#39;: &#39;integer&#39;,</span><br><span class="line">18     &#39;BigIntegerField&#39;: &#39;bigint&#39;,</span><br><span class="line">19     &#39;IPAddressField&#39;: &#39;char(15)&#39;,</span><br><span class="line">20     &#39;GenericIPAddressField&#39;: &#39;char(39)&#39;,</span><br><span class="line">21     &#39;NullBooleanField&#39;: &#39;bool&#39;,</span><br><span class="line">22     &#39;OneToOneField&#39;: &#39;integer&#39;,</span><br><span class="line">23     &#39;PositiveIntegerField&#39;: &#39;integer UNSIGNED&#39;,</span><br><span class="line">24     &#39;PositiveSmallIntegerField&#39;: &#39;smallint UNSIGNED&#39;,</span><br><span class="line">25     &#39;SlugField&#39;: &#39;varchar(%(max_length)s)&#39;,</span><br><span class="line">26     &#39;SmallIntegerField&#39;: &#39;smallint&#39;,</span><br><span class="line">27     &#39;TextField&#39;: &#39;longtext&#39;,</span><br><span class="line">28     &#39;TimeField&#39;: &#39;time&#39;,</span><br><span class="line">29     &#39;UUIDField&#39;: &#39;char(32)&#39;,</span><br></pre></td></tr></table></figure>
+
+<h2 id="字段参数"><a href="#字段参数" class="headerlink" title="字段参数"></a>字段参数</h2><p><strong>null</strong></p>
+<p>用于表示某个字段可以为空。</p>
+<p><strong>unique</strong></p>
+<p>如果设置为unique=True 则该字段在此表中必须是唯一的 。</p>
+<p><strong>db_index</strong></p>
+<p>如果db_index=True 则代表着为此字段设置索引。</p>
+<p><strong>default</strong></p>
+<p>为该字段设置默认值。</p>
+<p><strong>DateField和DateTimeField</strong></p>
+<p>两个参数</p>
+<p><strong>auto_now_add</strong></p>
+<p>配置auto_now_add=True，创建数据记录的时候会把当前时间添加到数据库。</p>
+<p><strong>auto_now</strong></p>
+<p>配置上auto_now=True，每次更新数据记录的时候会更新该字段。</p>
+<h2 id="关系字段"><a href="#关系字段" class="headerlink" title="关系字段"></a>关系字段</h2><p><strong>ForeignKey</strong></p>
+<p>外键类型在ORM中用来表示外键关联关系，一般把ForeignKey字段设置在 ‘一对多’中’多’的一方。</p>
+<p>ForeignKey可以和其他表做关联关系同时也可以和自身做关联关系。</p>
+<h2 id="字段参数-1"><a href="#字段参数-1" class="headerlink" title="字段参数"></a>字段参数</h2><p><strong>to</strong></p>
+<p>设置要关联的表</p>
+<p><strong>to_field</strong></p>
+<p>设置要关联的表的字段</p>
+<p><strong>on_delete</strong></p>
+<p>当删除关联表中的数据时，当前表与其关联的行的行为。</p>
+<p><strong>models.CASCADE</strong></p>
+<p>删除关联数据，与之关联也删除（jdango1.x版本默认级联跟新级联删除）</p>
+<p><strong>db_constraint</strong></p>
+<p>是否在数据库中创建外键约束，默认为True。</p>
+<p><strong>models.DO_NOTHING</strong> 删除关联数据，引发错误IntegrityError</p>
+<p><strong>models.PROTECT</strong> 删除关联数据，引发错误ProtectedError</p>
+<p><strong>models.SET_NULL</strong> 删除关联数据，与之关联的值设置为null（前提FK字段需要设置为可空）</p>
+<p><strong>models.SET_DEFAULT</strong> 删除关联数据，与之关联的值设置为默认值（前提FK字段需要设置默认值）</p>
+<p><strong>models.SET</strong></p>
+<p>删除关联数据， a. 与之关联的值设置为指定值，设置：models.SET(值) b. 与之关联的值设置为可执行对象的返回值，设置：models.SET(可执行对象)</p>
+<p><strong>OneToOneField</strong></p>
+<p>一对一字段。</p>
+<p>通常一对一字段用来扩展已有字段。(通俗的说就是一个人的所有信息不是放在一张表里面的，简单的信息一张表，隐私的信息另一张表，之间通过一对一外键关联)</p>
+<p><strong>字段参数</strong></p>
+<p><strong>to</strong></p>
+<p>设置要关联的表。</p>
+<p><strong>to_field</strong></p>
+<p>设置要关联的字段。</p>
+<p><strong>on_delete</strong></p>
+<p>当删除关联表中的数据时，当前表与其关联的行的行为。(参考上面的例子)</p>
+<h1 id="二-choices参数"><a href="#二-choices参数" class="headerlink" title="二.choices参数"></a>二.choices参数</h1><p>当数据能够被完全列举（例如用户的性别，学历，婚否，在职状态，客户来源等），你就可以考虑使用choices参数</p>
+<p>通过choices参数我们可以解决一个问题：将能够列举的数据存入数据库时只存入对应数据的数字，取出来的时候会将此数字对应的数据展示给用户</p>
+<p>下面是具体操作示范</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Userinfo(models.Model):</span><br><span class="line">    name &#x3D; models.CharField(max_length&#x3D;32)</span><br><span class="line">    # 将gender字段提前列举并通过choices参数传给下面的gender</span><br><span class="line">    gender_choices &#x3D; (</span><br><span class="line">        (1,&#39;男&#39;),</span><br><span class="line">        (2, &#39;女&#39;),</span><br><span class="line">        (3, &#39;其他&#39;),</span><br><span class="line">    )</span><br><span class="line">    gender &#x3D; models.IntegerField(choices&#x3D;gender_choices)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 # 此时gender以数字的形式 </span><br><span class="line">2     models.Userinfo.objects.create(name&#x3D;&#39;jason&#39;,gender&#x3D;1)</span><br><span class="line">3     models.Userinfo.objects.create(name&#x3D;&#39;tank&#39;,gender&#x3D;2)</span><br><span class="line">4     models.Userinfo.objects.create(name&#x3D;&#39;egon&#39;,gender&#x3D;3)</span><br><span class="line">5     models.Userinfo.objects.create(name&#x3D;&#39;sean&#39;,gender&#x3D;10)</span><br><span class="line">6  # 可以存入没有对应关系的数字，但是取的时候由于没有对应关系取出来的还是数字</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"> 1 # 取出数据</span><br><span class="line"> 2 user_obj &#x3D; models.Userinfo.objects.get(pk&#x3D;1)</span><br><span class="line"> 3     print(user_obj.name)</span><br><span class="line"> 4     print(user_obj.gender)</span><br><span class="line"> 5     # 输出结果</span><br><span class="line"> 6     # jason</span><br><span class="line"> 7     # 1</span><br><span class="line"> 8     # 取出的时候要以get_字段名_display()的方式</span><br><span class="line"> 9     print(user_obj.get_gender_display())</span><br><span class="line">10     # 男</span><br><span class="line">11 </span><br><span class="line">12     user_obj1 &#x3D; models.Userinfo.objects.get(pk&#x3D;4)</span><br><span class="line">13     print(user_obj1.get_gender_display())</span><br><span class="line">14     # 10</span><br></pre></td></tr></table></figure>
+
+<h1 id="三-数据库查询优化"><a href="#三-数据库查询优化" class="headerlink" title="三.数据库查询优化"></a>三.数据库查询优化</h1><h2 id="1）惰性查询"><a href="#1）惰性查询" class="headerlink" title="1）惰性查询"></a>1）惰性查询</h2><p>当你只是去命令查询操作数据库而不需要用这个数据的时候，django就不会去查询以增加效率，除非你要打印或者使用，才会帮你去调用</p>
+<h2 id="2）only与defer"><a href="#2）only与defer" class="headerlink" title="2）only与defer"></a>2）only与defer</h2><ul>
+<li><strong>only作用</strong></li>
+</ul>
+<p>括号内传字段 得到的结果是一个列表套数据对象 该对象内只含有括号内指定的字段属性<br>对象点该字段属性是不会走数据库的 但是你一旦点了非括号内的字段 也能够拿到数据，但是是重新走的数据库查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1  res &#x3D; models.Book.objects.only(&#39;title&#39;)  # 這些對象内部只有title屬性</span><br><span class="line">2     # print(res)</span><br><span class="line">3     for r in res:</span><br><span class="line">4         # print(r.title)</span><br><span class="line">5         print(r.price)</span><br><span class="line">6         # 此时需要重新走数据库查询</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>defer作用</strong></li>
+</ul>
+<p>defer与only相反<br>括号内传字段 得到的结果是一个列表套数据对象 该对象内没有括号内指定的字段属性<br>对象点该字段属性会重复走数据库 但是你一旦点了非括号内的字段 就不走数据库了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1  res &#x3D; models.Book.objects.defer(&#39;title&#39;)  # defer与only互为反关系</span><br><span class="line">2     for r in res:</span><br><span class="line">3         print(r.title)</span><br><span class="line">4         # 此时查title需要重新做数据库</span><br></pre></td></tr></table></figure>
+
+<h2 id="3）selected-related与prefetch-related"><a href="#3）selected-related与prefetch-related" class="headerlink" title="3）selected_related与prefetch_related"></a>3）selected_related与prefetch_related</h2><ul>
+<li>selectd_relted作用</li>
+</ul>
+<p>内部是连表操作 现将关系表全部链接起来 之后再一次性查询出来 封装到对象中<br>数据对象之后在获取任意表中的数据的时候都不需要再走数据库了 因为全部封装成了对象的属性</p>
+<p>select_related括号内只能传外键字段 并且不能是多对多字段 只能是一对多和一对一，但是可以多个字段一起查<br>select_related(外键字段1__外键字段2__外键字段3…)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 res &#x3D; models.Book.objects.select_related(&#39;authors&#39;)</span><br><span class="line">2 for r in res:</span><br><span class="line">3     print(r.publish.name)</span><br><span class="line">4     print(r.publish.addr)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>prefetch_related作用：</li>
+</ul>
+<p>prefetch_related内部是子查询 但是给你的感觉是连表操作<br>内部通过子查询将外键管理表中的数据页全部给你封装到对象中<br>之后对象点当前表或者外键关联表中的字段也都不需要走数据库了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 res &#x3D; models.Book.objects.prefetch_related(&#39;publish&#39;)</span><br><span class="line">2     # print(res)</span><br><span class="line">3 </span><br><span class="line">4 for r in res:</span><br><span class="line">5     print(r.publish.name)</span><br></pre></td></tr></table></figure>
+
+<p>优缺点比较：各有优劣，具体情况具体分析</p>
+<ul>
+<li><p>select_related连表操作 好处在于只走一次sql查询</p>
+<p>耗时耗在 连接表的操作 ,表的数据越大连接时间越长</p>
+</li>
+<li><p>prefetch_related子查询操作给人的感觉很像联表查询，他走数据库的查询次数取决于你要查询的数据多少，耗时耗在查询次数</p>
+</li>
+</ul>
+<h1 id="四-事物操作"><a href="#四-事物操作" class="headerlink" title="四.事物操作"></a>四.事物操作</h1><p>django orm开启事务操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from django.db import transaction</span><br><span class="line">with transaction.atomic():    </span><br><span class="line"># 在with代码块中执行的orm语句同属于一个事务    </span><br><span class="line">    pass</span><br><span class="line"># 代码块运行结束 事务就结束了，可以直接在下面写其他代码了</span><br></pre></td></tr></table></figure>
+
+<h1 id="五-MTV与MVC模型框架"><a href="#五-MTV与MVC模型框架" class="headerlink" title="五.MTV与MVC模型框架"></a>五.MTV与MVC模型框架</h1><p>MTV模型：Django是MTV框架</p>
+<p>M:models T:templates V:views</p>
+<p>MVC M:models V:views C:controller # 控制器(路由分发 urls.py)</p>
+<p>本质:MTV本质也是MVC</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/27/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%B8%B8%E7%94%A8%E5%AD%97%E6%AE%B5%E5%92%8C%E4%BA%8B%E7%89%A9%E6%93%8D%E4%BD%9C/" data-id="ckd3ewqb80004qwutbsxc6dm0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/02/Django%E6%A1%86%E6%9E%B6%E4%B9%8BAjax/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Django框架之Ajax
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/19/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%92%8CORM/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Django框架模型层和ORM</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">网络和并发编程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Django/" style="font-size: 16.67px;">Django</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">网络和并发编程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/16/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E6%9D%BF%E5%B1%82/">Django框架模板层</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/02/Django%E6%A1%86%E6%9E%B6%E4%B9%8BAjax/">Django框架之Ajax</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/27/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%B8%B8%E7%94%A8%E5%AD%97%E6%AE%B5%E5%92%8C%E4%BA%8B%E7%89%A9%E6%93%8D%E4%BD%9C/">Django框架模型层常用字段和事物操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/19/Django%E6%A1%86%E6%9E%B6%E6%A8%A1%E5%9E%8B%E5%B1%82%E5%92%8CORM/">Django框架模型层和ORM</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/15/Django%E6%A1%86%E6%9E%B6%E8%B7%AF%E7%94%B1%E5%B1%82%E5%92%8C%E8%A7%86%E5%9B%BE%E5%B1%82/">Django框架路由层和视图层</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
