@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL数据库的隔离级别和锁 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="事务是有隔离级别read uncommited (读未提交)：不做任何隔离，具有脏读，不可重读，幻读的问题 read committed （读提交）：可以防止脏读，不能防止不可重复读和幻读的问题 repeated read（可重复读）：可以防止脏读，不可重复读，不能防止幻读（mysql的默认隔离级别） serializable（串行化）：数据库运行为串行，以上问题都可以防止，但是性能低，相当于将整">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库的隔离级别和锁">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="事务是有隔离级别read uncommited (读未提交)：不做任何隔离，具有脏读，不可重读，幻读的问题 read committed （读提交）：可以防止脏读，不能防止不可重复读和幻读的问题 repeated read（可重复读）：可以防止脏读，不可重复读，不能防止幻读（mysql的默认隔离级别） serializable（串行化）：数据库运行为串行，以上问题都可以防止，但是性能低，相当于将整">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-11-24T12:53:03.000Z">
+<meta property="article:modified_time" content="2020-07-26T17:04:44.122Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MySQL数据库的隔离级别和锁" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/" class="article-date">
+  <time datetime="2018-11-24T12:53:03.000Z" itemprop="datePublished">2018-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL数据库的隔离级别和锁
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="事务是有隔离级别"><a href="#事务是有隔离级别" class="headerlink" title="事务是有隔离级别"></a>事务是有隔离级别</h3><p>read uncommited (读未提交)：不做任何隔离，具有脏读，不可重读，幻读的问题</p>
+<p>read committed （读提交）：可以防止脏读，不能防止不可重复读和幻读的问题</p>
+<p>repeated read（可重复读）：可以防止脏读，不可重复读，不能防止幻读（mysql的默认隔离级别）</p>
+<p>serializable（串行化）：数据库运行为串行，以上问题都可以防止，但是性能低，相当于将整个库都加锁了</p>
+<p><strong>下面的解释都用这个user表</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="left">age</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">jason</td>
+<td align="left">38</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="脏读（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"><a href="#脏读（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）" class="headerlink" title="脏读（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"></a>脏读（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 a  开启事务  将jason的年龄改成 18岁，但是没有提交事务</span><br><span class="line">2 b  开始事务  读取jason的年龄，发现是18岁。</span><br><span class="line"></span><br><span class="line">上述的问题，</span><br><span class="line">假设a事务回滚，b事务使用的数据就是错误的，就导致程序数据不正确。</span><br></pre></td></tr></table></figure>
+
+<h3 id="不可重复度（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"><a href="#不可重复度（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）" class="headerlink" title="不可重复度（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"></a>不可重复度（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 a  开始事务  将jason的年龄改成18岁，但是提交了</span><br><span class="line">2 b  开启事务  读取jason的年龄就能读取a事务修改后的jason年龄18岁。</span><br></pre></td></tr></table></figure>
+
+<h3 id="可重读读（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"><a href="#可重读读（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）" class="headerlink" title="可重读读（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"></a>可重读读（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 a  开始事务  将jason的年龄改成18岁，但是提交了</span><br><span class="line">2 b  开启事务  读取jason的年龄不能读取a事务修改后的jason年龄18岁。而是读取的是38岁</span><br></pre></td></tr></table></figure>
+
+<h3 id="幻读（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"><a href="#幻读（a-b同时开始事务，a-b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）" class="headerlink" title="幻读（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）"></a>幻读（a,b同时开始事务，a,b再事务，没有哪一个结束，只有两个都进入事务后，才能结束期中一个事务，两个事务都是存活的）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#概念和不可重读有点像，不可重复度是站在修改的基础上，而幻读是站在新增的基础上</span><br><span class="line">1 a  开始事务  将所有的的年龄改成18岁</span><br><span class="line">2 b  开始事务  新增一条数据数据name&#x3D;tank，age&#x3D;19，而且提交了。</span><br><span class="line">3 a  重新查， 发现有一条数据 的age&#x3D;19，这就是所谓的幻读。</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何看msql的隔离级别"><a href="#如何看msql的隔离级别" class="headerlink" title="如何看msql的隔离级别"></a>如何看msql的隔离级别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select @@global.tx_isolation;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何修改事务的隔离级别"><a href="#如何修改事务的隔离级别" class="headerlink" title="如何修改事务的隔离级别"></a>如何修改事务的隔离级别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#修改配置文件</span><br><span class="line">transaction-isolation&#x3D;Read-Committed</span><br><span class="line">#修改后一定要重启数据库</span><br></pre></td></tr></table></figure>
+
+<p><strong>为什么会出现“脏读”？</strong>因为没有“select”操作没有规矩。</p>
+<p><strong>为什么会出现“不可重复读”？</strong>因为“update”操作没有规矩。</p>
+<p><strong>为什么会出现“幻读”？</strong>因为“insert”和“delete”操作没有规矩。</p>
+<p><strong>“读未提（Read Uncommitted）”能预防啥？</strong>啥都预防不了。</p>
+<p><strong>“读提交（Read Committed）”能预防啥？</strong>使用“快照读（Snapshot Read）”，避免“脏读”，但是可能出现“不可重复读”和“幻读”。</p>
+<p><strong>“可重复读（Repeated Red）”能预防啥？</strong>使用“快照读（Snapshot Read）”，锁住被读取记录，避免出现“脏读”、“不可重复读”，但是可能出现“幻读”。</p>
+<p><strong>“串行化（Serializable）”能预防啥？</strong>排排坐，吃果果，有效避免“脏读”、“不可重复读”、“幻读”，不过效果谁用谁知道。</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1611918898724887602&amp;wfr=spider&amp;for=pc" target="_blank" rel="noopener">https://baijiahao.baidu.com/s?id=1611918898724887602&amp;wfr=spider&amp;for=pc</a></p>
+<h3 id="数据库的乐观锁与悲观锁-是建立再事务的基础上"><a href="#数据库的乐观锁与悲观锁-是建立再事务的基础上" class="headerlink" title="数据库的乐观锁与悲观锁(是建立再事务的基础上)"></a>数据库的乐观锁与悲观锁(是建立再事务的基础上)</h3><h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">悲观锁的概念，他觉有人会修改我读的数据。那我就再查的时候，对数据进行锁定。</span><br><span class="line"></span><br><span class="line">select age from user where id&#x3D;1 for update;</span><br><span class="line">比如 上面的查出来的 age &#x3D;18 </span><br><span class="line">update age改成age &#x3D; age+ 1</span><br><span class="line">如果别人开启了悲观锁这条数据就会被锁定卡住，只能等别人的事物结束才能操作，所以少用慎用 </span><br><span class="line">如果该次查询走了索引，那就是行锁，如果没有走索引就是表锁。</span><br><span class="line"></span><br><span class="line">如何释放锁呢？结束事务就释 放了锁。</span><br><span class="line">django中的orm是如果用悲观锁？</span><br><span class="line">user.objects.select_for_update().filter(id&#x3D;1).first()</span><br></pre></td></tr></table></figure>
+
+<h3 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">乐观锁的本质不是锁。他是通过代码来实现锁的。他觉的别人不会修改的他的数据。他就读数据不会被别人修改。最后再修改该条数据，再where条件中添加，之前查出来的数据。以保证数据的安全性</span><br><span class="line">select age from user where id&#x3D;1 ;</span><br><span class="line">比如 上面的查出来的 age &#x3D;18   </span><br><span class="line">20 </span><br><span class="line">update age改成age &#x3D; age+ 1  &#x3D;&#x3D;&#x3D;&#x3D;》19</span><br><span class="line"></span><br><span class="line">乐观锁：</span><br><span class="line">update age改成age &#x3D; age+ 1 where age &#x3D;18 and id &#x3D;1  &#x3D;&#x3D;&#x3D;&#x3D;》19</span><br><span class="line">如果我发现不是18,上面的影响行数是0，这样说明数据是不安全的，重新for循环或者其他方式获取数据重新执行</span><br><span class="line">#如果是可重复读，上面的乐观锁无效，必须改成read committed，因为可重复读会读取到之前的数据，所以乐观锁的条件就会成立</span><br><span class="line">a update age改成age &#x3D; age+ 1  &#x3D;&#x3D;&#x3D;&#x3D;》19 提交</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">b select age from user where id&#x3D;1; ---&gt;18</span><br><span class="line"></span><br><span class="line">update age改成age &#x3D; age+ 1 where age &#x3D;18 and id &#x3D;1  &#x3D;&#x3D;&#x3D;&#x3D;》19  ----&gt;数据已经被改</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/" data-id="ckd3c2hld0003z8ut9k5vdza3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/16/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL数据库的基本操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/">MySQL数据库的隔离级别和锁</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/16/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">MySQL数据库的基本操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/">MySQL数据库的字段类型和约束条件</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/">MySQL数据库的基础了解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/02/python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">python单例模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

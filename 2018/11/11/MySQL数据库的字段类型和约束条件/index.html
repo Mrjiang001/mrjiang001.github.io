@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL数据库的字段类型和约束条件 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一.存储引擎 存储引擎是用于根据不同的机制处理不同的数据。 12查看mysql中所有引擎:    - show engines;    innodb:默认存储引擎, 1支持事物,支持行锁,支持外键  myisam: MySQL老版本在用的存储引擎  blackhole: 黑洞,存任何数据，都会立即消失，相当于经过队列，数据存入就会被取走  memory: 内存引擎(数据存放在内存中,断电即消失,即">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库的字段类型和约束条件">
+<meta property="og:url" content="http://yoursite.com/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="一.存储引擎 存储引擎是用于根据不同的机制处理不同的数据。 12查看mysql中所有引擎:    - show engines;    innodb:默认存储引擎, 1支持事物,支持行锁,支持外键  myisam: MySQL老版本在用的存储引擎  blackhole: 黑洞,存任何数据，都会立即消失，相当于经过队列，数据存入就会被取走  memory: 内存引擎(数据存放在内存中,断电即消失,即">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/57135669/88484815-26288f80-cfa4-11ea-912d-dba1760dc6cd.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/57135669/88484819-2c1e7080-cfa4-11ea-806b-aaf24ea9e89b.png">
+<meta property="article:published_time" content="2018-11-11T13:52:12.000Z">
+<meta property="article:modified_time" content="2020-07-26T16:58:56.471Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/57135669/88484815-26288f80-cfa4-11ea-912d-dba1760dc6cd.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MySQL数据库的字段类型和约束条件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/" class="article-date">
+  <time datetime="2018-11-11T13:52:12.000Z" itemprop="datePublished">2018-11-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL数据库的字段类型和约束条件
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-存储引擎"><a href="#一-存储引擎" class="headerlink" title="一.存储引擎"></a>一.存储引擎</h2><p> 存储引擎是用于根据不同的机制处理不同的数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查看mysql中所有引擎:    </span><br><span class="line">- show engines;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://user-images.githubusercontent.com/57135669/88484815-26288f80-cfa4-11ea-912d-dba1760dc6cd.png" alt="数据库4"></p>
+<ul>
+<li><p>innodb:默认存储引擎,</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">支持事物,支持行锁,支持外键</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>myisam: MySQL老版本在用的存储引擎</p>
+</li>
+<li><p>blackhole: 黑洞,存任何数据，都会立即消失，相当于经过队列，数据存入就会被取走</p>
+<ul>
+<li><p>memory: 内存引擎(数据存放在内存中,断电即消失,即关闭服务端)</p>
+<p>举例说明四种不同的存储引擎</p>
+<ul>
+<li>插入四种不同的存储引擎</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- create table t1(id int)engine=innodb;</span><br><span class="line">- create table t2(id int)engine=myisam;</span><br><span class="line">- create table t3(id int)engine=blackhole;</span><br><span class="line">- create table t4(id int)engine=memory;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>插入数据并查表内容</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- insert into t1 values(<span class="number">1</span>);</span><br><span class="line">	 select * <span class="keyword">from</span> t1;</span><br><span class="line">- insert into t2 values(<span class="number">1</span>);</span><br><span class="line">	 select * <span class="keyword">from</span> t2;</span><br><span class="line">- insert into t3 values(<span class="number">1</span>);</span><br><span class="line">	 select * <span class="keyword">from</span> t3;</span><br><span class="line">- insert into t4 values(<span class="number">1</span>);</span><br><span class="line">	 select * <span class="keyword">from</span> t4;这个需要内存中还有，需要关掉服务端才能销毁清除。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="二-创建表完整的语法"><a href="#二-创建表完整的语法" class="headerlink" title="二.创建表完整的语法"></a>二.创建表完整的语法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">create table 表名(字段名<span class="number">1</span> 字段类型(宽度) 约束条件,字段名<span class="number">2</span> 字段类型(宽度) 约束条件);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 宽度指对存储数据的限制</span></span><br><span class="line">create table userinfo(name char);</span><br><span class="line">insert into userinfo values(<span class="string">'tank'</span>);</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">1)没有安全模式的数据库版本，能够存放数据但只存存进去一个t。</span></span><br><span class="line"><span class="string">2)最新数据的版本直接报错提示无法储存: Data too long for column 'name'</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 约束条件非必须,可有可无</span></span><br><span class="line">例如null和<span class="keyword">not</span> null</span><br><span class="line">create table t1(id int, name char <span class="keyword">not</span> null)</span><br><span class="line"><span class="comment"># 正常存储</span></span><br><span class="line">insert into t1 values(<span class="number">1</span>, <span class="string">'tank'</span>);</span><br><span class="line"><span class="comment"># 错误存储</span></span><br><span class="line">insert into t1 values(<span class="number">2</span>, null);</span><br><span class="line"><span class="comment">#报错信息:ERROR 1048 (23000): Column 'name' cannot be null</span></span><br></pre></td></tr></table></figure>
+
+<p>总结:</p>
+<ul>
+<li>创建表的时候字段名不能重复</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table test(</span><br><span class="line">               id int,</span><br><span class="line">               id int</span><br><span class="line">           );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最后一个字段不能在末尾加逗号</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">create table test(</span><br><span class="line">               id int,</span><br><span class="line">               age int,</span><br><span class="line">           );</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>字段名必须有字段类型与宽度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">create table test(</span><br><span class="line">                id int,</span><br><span class="line">                name char</span><br><span class="line">            );</span><br><span class="line">            insert into test values(<span class="number">1</span>, <span class="string">'tank'</span>);</span><br><span class="line"></span><br><span class="line">            alter table test modify name char(<span class="number">4</span>);</span><br><span class="line">            insert into test values(<span class="number">2</span>, <span class="string">'sean'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="三-字段类型"><a href="#三-字段类型" class="headerlink" title="三.字段类型"></a>三.字段类型</h2><ul>
+<li>确定表结构</li>
+<li>字段与字段类型</li>
+</ul>
+<h2 id="补充-设置严格模式"><a href="#补充-设置严格模式" class="headerlink" title="补充:设置严格模式"></a>补充:设置严格模式</h2><p>在一些低版本的mysql里面,即时输入的数据不符合规格,也会存入进字段里面,所以可以通过设置严格模式来解决这个问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看数据库配置中变量名包含mode的配置参数:</span></span><br><span class="line">show variables like <span class="string">"%mode%"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改安全模式:</span></span><br><span class="line">set session;  <span class="comment"># 局部有效，只在你当前操作的窗口有效</span></span><br><span class="line">set <span class="keyword">global</span> session;  <span class="comment"># 全局有效，永久有效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改严格模式,以管理员修改完之后退出当前客户端重新登录即可</span></span><br><span class="line">set <span class="keyword">global</span> sql_mode = <span class="string">'STRICT_TRANS_TABLES'</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-整型"><a href="#1-整型" class="headerlink" title="1)整型"></a>1)整型</h3><ul>
+<li>分类:tinyint、smallint、mediumint、int、bigint</li>
+<li>应用场景: 存储年龄,等级,id,号码等</li>
+<li>典型存储范围</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/57135669/88484819-2c1e7080-cfa4-11ea-806b-aaf24ea9e89b.png" alt="数据库5"></p>
+<ul>
+<li>验证整型字段有无符号及范围</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TINYINT  tinyint范围( -128, 127)</span></span><br><span class="line"><span class="number">1</span>)默认有正负符号限制</span><br><span class="line">create table t2(id TINYINT);</span><br><span class="line">desc t2;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 超出限制, 插不进去,低版本设置严格模式后会报错,不设置严格模式进去会被自动修改数值为-128或127</span></span><br><span class="line">insert into t2 values(<span class="number">-129</span>), (<span class="number">256</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 默认范围是(-128, 127)</span></span><br><span class="line">insert into t2 values(<span class="number">-128</span>), (<span class="number">127</span>);</span><br><span class="line"></span><br><span class="line">select * <span class="keyword">from</span> t2;</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>) 无正负符号限制: unsigne</span><br><span class="line">create table t3(number tinyint unsigned);</span><br><span class="line"><span class="comment"># 输入负号或超出范围都会报错</span></span><br><span class="line">insert into t3 values(<span class="number">-10</span>);  </span><br><span class="line">insert into t3 values(<span class="number">127</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># INT: int默认最大展示的位数是11位</span></span><br><span class="line">create table t4(id int);</span><br><span class="line"><span class="comment"># 默认范围是(-2147483648， 2147483647)</span></span><br><span class="line">insert into t4 values(<span class="number">-2147483648</span>), (<span class="number">2147483647</span>);</span><br><span class="line"><span class="comment"># 超出默认范围,报错</span></span><br><span class="line">insert into t4 values(<span class="number">-2147483648</span>), (<span class="number">122412451251251</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 问题: 整型后的宽度能否改变字段存储的大小？</span></span><br><span class="line"><span class="comment"># create table t5(number int(10));</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># int(8)不是限制长度，而是控制展示数据的位数，8位以内以空格补全，超出则正常显示。</span></span><br><span class="line">create table t5(id int(<span class="number">8</span>));</span><br><span class="line">insert into t5 values(<span class="number">2147483647</span>);</span><br><span class="line">select * <span class="keyword">from</span> t5;</span><br><span class="line">+------------+</span><br><span class="line">| id         |</span><br><span class="line">+------------+</span><br><span class="line">| <span class="number">2147483647</span> |</span><br><span class="line">|      <span class="number">21474</span> |</span><br><span class="line">+------------+</span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示不够8位用0补全, 并且只能插入无符号的值</span></span><br><span class="line">create table t6(id int(<span class="number">8</span>) unsigned zerofill);</span><br><span class="line">+----------+</span><br><span class="line">| id       |</span><br><span class="line">+----------+</span><br><span class="line">| <span class="number">42949672</span> |</span><br><span class="line">| <span class="number">00429496</span> |</span><br><span class="line">+----------+</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">总结:</span></span><br><span class="line"><span class="string">		- 注意1:</span></span><br><span class="line"><span class="string">			- not null: 字段值不能为空</span></span><br><span class="line"><span class="string">			- unsigned: 无正负符号</span></span><br><span class="line"><span class="string">			- zerofill: 不够以0填充空格</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-浮点型"><a href="#2-浮点型" class="headerlink" title="2)浮点型:"></a>2)浮点型:</h3><ul>
+<li>分类: float、double、 decimal</li>
+<li>应用场景: 身高、体重、薪资</li>
+<li>三者最大的区别是存储精确度不一样</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">注意: 字段限制特点(<span class="number">5</span>,<span class="number">3</span>)前一位表示所有的位数,后一位表示小数个数。</span><br><span class="line">    <span class="comment"># 存储限制:</span></span><br><span class="line">	- float(<span class="number">255</span>, <span class="number">30</span>)</span><br><span class="line">	- double(<span class="number">255</span>, <span class="number">30</span>)</span><br><span class="line">	- decimal(<span class="number">65</span>, <span class="number">30</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 精确度验证:</span></span><br><span class="line">create table t7(x float(<span class="number">255</span>, <span class="number">30</span>));</span><br><span class="line">create table t8(x double(<span class="number">255</span>, <span class="number">30</span>));</span><br><span class="line">create table t9(x decimal(<span class="number">65</span>, <span class="number">30</span>));</span><br><span class="line"></span><br><span class="line">insert into t7 values(<span class="number">1.1111111111111111111111111111</span>);</span><br><span class="line"><span class="string">''' </span></span><br><span class="line"><span class="string">mysql&gt; select *from t7;</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">| x                                |</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">| 1.111111164093017600000000000000 |</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">1 row in set (0.00 sec)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">insert into t8 values(<span class="number">1.1111111111111111111111111111</span>);</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">mysql&gt; select *from t8;</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">| x                                |</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">| 1.111111111111111200000000000000 |</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">1 row in set (0.00 sec)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">insert into t9 values(<span class="number">1.1111111111111111111111111111</span>);</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">mysql&gt; select *from t9;</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">| x                                |</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">| 1.111111111111111111111111111100 |</span></span><br><span class="line"><span class="string">+----------------------------------+</span></span><br><span class="line"><span class="string">1 row in set (0.00 sec)</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">总结:三种浮点型的精确度不一样,最好的是decimal,但是float也够用了</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-字符类型"><a href="#3-字符类型" class="headerlink" title="3)字符类型"></a>3)字符类型</h3><ul>
+<li><p>分类：varchar 、char</p>
+</li>
+<li><p>应用场景: 姓名、地址、描述信息</p>
+<p><strong>1)char:定长字符</strong></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 超出四个字符报错，不够四个字符空格补全</span></span><br><span class="line">create table t10(name char(<span class="number">4</span>));</span><br><span class="line"></span><br><span class="line">insert into t10 values(<span class="string">'tank'</span>);</span><br><span class="line">insert into t10 values(<span class="string">'lol'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 报错</span></span><br><span class="line">insert into t10 values(<span class="string">'hello'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">优点:</span><br><span class="line">	存取速度快</span><br><span class="line">缺点:</span><br><span class="line">	浪费空间。</span><br><span class="line">insert into t11 values(<span class="number">1</span>, <span class="string">'t'</span>); <span class="comment"># t+三个空格</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意: 无法查看字符真实长度</span></span><br><span class="line"><span class="comment"># 针对char类型，mysql在存储时会将数据用空格补全存放到硬盘中。但是会在读出结果的时候自动去掉末尾的空格。</span></span><br></pre></td></tr></table></figure>
+
+<p> <strong>2)varchar: 不定长</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- 存几个字符，就是几个字符的大小，每个字符前都要+<span class="number">1</span>bytes</span><br><span class="line">create table t11(name varchar(<span class="number">4</span>));</span><br><span class="line"></span><br><span class="line">- insert into t11 values(<span class="string">'tank'</span>);</span><br><span class="line">insert into t11 values(<span class="string">'lol'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 报错</span></span><br><span class="line">insert into t10 values(<span class="string">'hello'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">优点:</span><br><span class="line">	节省空间</span><br><span class="line">缺点:</span><br><span class="line">	存取速度慢</span><br></pre></td></tr></table></figure>
+
+<h3 id="4）日期类型"><a href="#4）日期类型" class="headerlink" title="4）日期类型"></a>4）日期类型</h3><ul>
+<li>分类:<ul>
+<li>date: 2019-12-10</li>
+<li>time: 11:11:11</li>
+<li>datetime: 2019-12-10 11:11:11</li>
+<li>year: 2019</li>
+<li>timestamp:时间戳</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建立表格</span></span><br><span class="line">create table teacher1(id int, name varchar(<span class="number">16</span>),born_year year,brith date,work_time time,register_time datetime, local_time timestamp);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 插入记录:</span></span><br><span class="line">insert into teacher1 values(<span class="number">1</span>,<span class="string">'tank'</span>,<span class="string">'2000'</span>,<span class="string">'2000-12-12'</span>,<span class="string">'12:11:10'</span>,<span class="string">'2000-12-12 11:11:11'</span>,null);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 时间戳可以用null代替</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意:插入时间需要以字符串格式</span></span><br></pre></td></tr></table></figure>
+
+<p>表的内容:</p>
+<p>mysql&gt; select *from teacher1;<br>+——+——+———–+————+———–+———————+———————+</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">born_year</th>
+<th align="left">brith</th>
+<th align="left">work_time</th>
+<th align="left">register_time</th>
+<th align="left">local_time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>+——+——+———–+————+———–+———————+———————+</p>
+<table>
+<thead>
+<tr>
+<th align="left">1</th>
+<th align="left">tank</th>
+<th align="left">2000</th>
+<th align="left">2000-12-12</th>
+<th align="left">12:11:10</th>
+<th align="left">2000-12-12 11:11:11</th>
+<th align="left">2019-12-11 18:37:00</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p>+——+——+———–+————+———–+———————+———————+</p>
+<h3 id="5-枚举和集合类型"><a href="#5-枚举和集合类型" class="headerlink" title="5)枚举和集合类型"></a>5)枚举和集合类型</h3><p>分类:</p>
+<ul>
+<li>枚举enum 多选一</li>
+<li>集合set 多选一 或 多选多</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> - enum: 可以 多选一</span><br><span class="line">   create table t13(</span><br><span class="line">       id int,</span><br><span class="line">       name varchar(<span class="number">4</span>),</span><br><span class="line">       gender enum(<span class="string">'male'</span>, <span class="string">'female'</span>, <span class="string">'others'</span>)</span><br><span class="line">   );</span><br><span class="line">                <span class="comment"># insert into 表名(字段名) values(字段名对应的值);</span></span><br><span class="line">                insert into t13(id, name, gender) values(<span class="number">1</span>, <span class="string">'tank'</span>, <span class="string">'male'</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 严格模式下，选择枚举以外的值会报错</span></span><br><span class="line">                insert into t13(id, name, gender) values(<span class="number">2</span>, <span class="string">'gd'</span>, <span class="string">'animal'</span>);</span><br><span class="line">                </span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">- set: 可 多选一 或 多选多</span><br><span class="line">                create table t14(</span><br><span class="line">                    id int,</span><br><span class="line">                    name varchar(<span class="number">4</span>),</span><br><span class="line">                    gender enum(<span class="string">'male'</span>, <span class="string">'female'</span>, <span class="string">'others'</span>),</span><br><span class="line">                    hobbies set(<span class="string">'read'</span>, <span class="string">'sing'</span>, <span class="string">'生蚝'</span>, <span class="string">'HSNM'</span>, <span class="string">'架子鼓'</span>)</span><br><span class="line">                );</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 多选一</span></span><br><span class="line">                insert into t14 values(<span class="number">1</span>, <span class="string">'大鸡J'</span>, <span class="string">'others'</span>, <span class="string">'HSNM'</span>);</span><br><span class="line">                <span class="comment"># 多选多</span></span><br><span class="line">                insert into t14 values(<span class="number">2</span>, <span class="string">'tank'</span>, <span class="string">'male'</span>, <span class="string">'read,架子鼓,sing,生蚝'</span>);</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 多选多的顺序可不一</span></span><br><span class="line">                insert into t14 values(<span class="number">2</span>, <span class="string">'tank'</span>, <span class="string">'male'</span>, <span class="string">'read,架子鼓,sing,生蚝'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="四-约束条件"><a href="#四-约束条件" class="headerlink" title="四.约束条件"></a>四.约束条件</h2><p>约束条件就是，对于数据库表插入数据时加以约束限制。</p>
+<h3 id="1-约束条件介绍"><a href="#1-约束条件介绍" class="headerlink" title="1)约束条件介绍"></a>1)约束条件介绍</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- primary key (pk)</span><br><span class="line">    标识该字段为该表的主键，主键可以是唯一的表示记录</span><br><span class="line">    </span><br><span class="line">- foreign key (fk)</span><br><span class="line">    标识该字段为该表的外键</span><br><span class="line"></span><br><span class="line">- <span class="keyword">not</span> null</span><br><span class="line">    标识该字段不能为空</span><br><span class="line"></span><br><span class="line">- unique key (uk)</span><br><span class="line">    标识该字段的值是唯一的</span><br><span class="line"></span><br><span class="line">- auto_increment</span><br><span class="line">    标识该字段的值自动增长 （整数类型，并且为主键）</span><br><span class="line"></span><br><span class="line">- default</span><br><span class="line">    为该字段设置默认值</span><br><span class="line"></span><br><span class="line">- unsigned</span><br><span class="line">    无正负符号</span><br><span class="line"></span><br><span class="line">- zerofill</span><br><span class="line">    使用<span class="number">0</span>填充空格</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-not-null-unique-非空唯一"><a href="#2-not-null-unique-非空唯一" class="headerlink" title="2)not null + unique (非空唯一)"></a>2)not null + unique (非空唯一)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create table user1(id int <span class="keyword">not</span> null,name varchar(<span class="number">4</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">#报错,不能输入空</span></span><br><span class="line">insert into user1 values(null,<span class="string">'tank'</span>);</span><br><span class="line"><span class="comment"># 正确</span></span><br><span class="line">insert into user1 values(<span class="number">1</span>,<span class="string">'tank'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-unique-将某个字段设置为唯一的值"><a href="#3-unique-将某个字段设置为唯一的值" class="headerlink" title="3)unique 将某个字段设置为唯一的值"></a>3)unique 将某个字段设置为唯一的值</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create table user3(id int <span class="keyword">not</span> null unique,name varchar(<span class="number">4</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment"># 报错</span></span><br><span class="line"> insert into user3 values(<span class="number">1</span>,<span class="string">'tank'</span>),(<span class="number">1</span>,<span class="string">'sean'</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 正确</span></span><br><span class="line">insert into user3 values(<span class="number">1</span>,<span class="string">'tank'</span>),(<span class="number">2</span>,<span class="string">'sean'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-primary-key-主键"><a href="#4-primary-key-主键" class="headerlink" title="4)primary key (主键)"></a>4)primary key (主键)</h3><p>相等于 :not null + unique</p>
+<p>pk就是表中的索引: 可以通过索引快速查找某些数据。 - 提高查询效率</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">  create table user4(</span><br><span class="line">                    id int primary key,</span><br><span class="line">                    name varchar(<span class="number">4</span>)</span><br><span class="line">                );</span><br><span class="line"><span class="comment"># 唯一</span></span><br><span class="line">insert into user4 values(<span class="number">1</span>);</span><br><span class="line">insert into user4 values(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不能为空</span></span><br><span class="line">insert into user4 values(null);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 强调:</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">		1.一张表必须只有一个主键，如果没有设置主键，会从上到下搜索，直到遇到 "第一个"非空且唯一的字段自动设置为主键。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">create table user8(</span><br><span class="line">	id int,</span><br><span class="line">  name varchar(<span class="number">16</span>),</span><br><span class="line">  age int <span class="keyword">not</span> null unique</span><br><span class="line">)engine=innodb;</span><br><span class="line"></span><br><span class="line">desc user8;</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">		2.如果包里没有指定任何可以设置主键的字段，那innodb会采用自己默认的一个隐藏关键字作为主键，隐藏意味着查询你的时候通过这个加速查询。</span></span><br><span class="line"><span class="string">		索引: 类似于书的目录, 没有主键就相当于一页一页翻着查询。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		3.一张表中通常都应该有一个id字段，并且通常将id字段作为主键。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 联合主键: 多个字段联合起来作为一个主键，本质上还是一个主键</span></span><br><span class="line">create table user9(</span><br><span class="line">	id int,</span><br><span class="line">	name varchar(<span class="number">16</span>),</span><br><span class="line">	primary key(id, name)</span><br><span class="line">);</span><br><span class="line">desc user9;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主键id作为数据的编号，应该设置为自动递增</span></span><br><span class="line">create table user10(</span><br><span class="line">	id int primary key auto_increment,</span><br><span class="line">  name varchar(<span class="number">16</span>)</span><br><span class="line">);</span><br><span class="line">desc user10;</span><br><span class="line"></span><br><span class="line">insert into user10(name) values(<span class="string">'tank'</span>);</span><br><span class="line">insert into user10(name) values(<span class="string">'sean'</span>),(<span class="string">'jason'</span>),(<span class="string">'大饼'</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment"># 若想自增从指定值开始，可插入第一条数据时先指定id的值;</span></span><br><span class="line">                insert into user4(id, name) values(<span class="number">10</span>, <span class="string">'tank'</span>);</span><br><span class="line">                insert into user4(name) values(<span class="string">'sean'</span>);  <span class="comment"># 11</span></span><br><span class="line">                insert into user4(name) values(<span class="string">'egon'</span>);  <span class="comment"># 12</span></span><br><span class="line">                insert into user4(name) values(<span class="string">'大鸡哥'</span>);  <span class="comment"># 13</span></span><br><span class="line">                </span><br><span class="line">                </span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意: auto_increment通常加在主键上，并且只能设置给primary key字段。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 补充:</span></span><br><span class="line">delete <span class="keyword">from</span> user10;</span><br><span class="line"><span class="comment"># delete删除表的记录或者指定记录，但id不会重置为0</span></span><br><span class="line"><span class="comment"># 删除某一条记录</span></span><br><span class="line">delete <span class="keyword">from</span> user10 where id=<span class="string">'4'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 若想要清空id重置为0，可使用truncate user10;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-unsigned"><a href="#5-unsigned" class="headerlink" title="5)unsigned"></a>5)unsigned</h3><p>无符号</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">create table user5(</span><br><span class="line">    id int unsigned</span><br><span class="line">);</span><br><span class="line"><span class="comment"># 报错</span></span><br><span class="line">insert into user5 values(<span class="number">-100</span>);</span><br><span class="line">insert into user5 values(<span class="number">0</span>);</span><br><span class="line">insert into user5 values(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line">有符号</span><br><span class="line">create table user6(</span><br><span class="line"> id int</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">insert into user6 values(<span class="number">-100</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-zerofill"><a href="#6-zerofill" class="headerlink" title="6)zerofill"></a>6)zerofill</h3><p>使用0填充空格</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">create table user7(</span><br><span class="line">	id int zerofill</span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">insert into user7 values(<span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-删除记录"><a href="#7-删除记录" class="headerlink" title="7)删除记录"></a>7)删除记录</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">create table user8(</span><br><span class="line">               id int primary key auto_increment,</span><br><span class="line">               name varchar(<span class="number">4</span>)</span><br><span class="line">           );</span><br><span class="line"></span><br><span class="line">           insert into user8(name) values(<span class="string">'tank'</span>);</span><br><span class="line">           insert into user8(name) values(<span class="string">'大大大'</span>), (<span class="string">'egon'</span>);</span><br><span class="line"></span><br><span class="line">           - delete:</span><br><span class="line">               <span class="comment"># 清空user8表中的所有记录</span></span><br><span class="line">               delete <span class="keyword">from</span> user8;</span><br><span class="line"></span><br><span class="line">           - truncate:</span><br><span class="line">               <span class="comment"># 清空user8表中的所以记录，并且id重置为0</span></span><br><span class="line">               truncate table user8;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/" data-id="ckd3c2hmk000wz8utac1p5m37" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/16/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL数据库的基本操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">MySQL数据库的基础了解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/">MySQL数据库的隔离级别和锁</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/16/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">MySQL数据库的基本操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/">MySQL数据库的字段类型和约束条件</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/">MySQL数据库的基础了解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/02/python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">python单例模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

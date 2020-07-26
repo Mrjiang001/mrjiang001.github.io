@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>MySQL数据库的基础了解 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="数据库介绍:1.什么是数据(Data)描述事物的符号记录称为数据，描述事物的符号既可以是数字，也可以是文字、图片，图像、声音、语言等，数据由多种表现形式，它们都可以经过数字化后存入计算机 在计算机中描述一个事物，就需要抽取这一事物的典型特征，组成一条记录，就相当于文件里的一行内容，如： 1egon,male,18,1999,山东,计算机系,2017,oldboy  单纯的一条记录并没有任何意义，如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库的基础了解">
+<meta property="og:url" content="http://yoursite.com/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="数据库介绍:1.什么是数据(Data)描述事物的符号记录称为数据，描述事物的符号既可以是数字，也可以是文字、图片，图像、声音、语言等，数据由多种表现形式，它们都可以经过数字化后存入计算机 在计算机中描述一个事物，就需要抽取这一事物的典型特征，组成一条记录，就相当于文件里的一行内容，如： 1egon,male,18,1999,山东,计算机系,2017,oldboy  单纯的一条记录并没有任何意义，如">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/57135669/88484691-ff1d8e00-cfa2-11ea-81d8-a73c36037fa9.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/57135669/88484693-02187e80-cfa3-11ea-9f84-f32f58f2ff25.png">
+<meta property="og:image" content="c:%5CUsers%5C%E6%B1%9F%E5%85%88%E7%94%9F%5CDesktop%5C%E5%9B%BE%E5%BA%8A%5C%E6%95%B0%E6%8D%AE%E5%BA%932.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/57135669/88484695-06449c00-cfa3-11ea-9340-220d7e1aad23.png">
+<meta property="article:published_time" content="2018-11-08T05:45:46.000Z">
+<meta property="article:modified_time" content="2020-07-26T16:50:49.975Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/57135669/88484691-ff1d8e00-cfa2-11ea-81d8-a73c36037fa9.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-MySQL数据库的基础了解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/" class="article-date">
+  <time datetime="2018-11-08T05:45:46.000Z" itemprop="datePublished">2018-11-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MySQL数据库的基础了解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数据库介绍"><a href="#数据库介绍" class="headerlink" title="数据库介绍:"></a>数据库介绍:</h1><h2 id="1-什么是数据-Data"><a href="#1-什么是数据-Data" class="headerlink" title="1.什么是数据(Data)"></a>1.什么是数据(Data)</h2><p>描述事物的符号记录称为数据，描述事物的符号既可以是数字，也可以是文字、图片，图像、声音、语言等，数据由多种表现形式，它们都可以经过数字化后存入计算机</p>
+<p>在计算机中描述一个事物，就需要抽取这一事物的典型特征，组成一条记录，就相当于文件里的一行内容，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">egon,male,<span class="number">18</span>,<span class="number">1999</span>,山东,计算机系,<span class="number">2017</span>,oldboy</span><br></pre></td></tr></table></figure>
+
+<p>单纯的一条记录并没有任何意义，如果我们按逗号作为分隔，依次定义各个字段的意思，相当于定义表的标题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name,sex,age,birth,born_addr,major,entrance_time,school <span class="comment">#字段</span></span><br><span class="line">egon,male,<span class="number">18</span>,<span class="number">1999</span>,山东,计算机系,<span class="number">2017</span>,oldboy <span class="comment">#记录</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-什么是数据库-DataBase-简称DB"><a href="#2-什么是数据库-DataBase-简称DB" class="headerlink" title="2.什么是数据库(DataBase,简称DB)"></a>2.什么是数据库(DataBase,简称DB)</h2><p>数据库即存放数据的仓库，只不过这个仓库是在计算机存储设备上，而且数据是按一定的格式存放的</p>
+<p>过去人们将数据存放在文件柜里，现在数据量庞大，已经不再适用</p>
+<p>数据库是长期存放在计算机内、有组织、可共享的数据即可。</p>
+<p>数据库中的数据按一定的数据模型组织、描述和储存，具有较小的冗余度、较高的数据独立性和易扩展性，并可为各种 用户共享</p>
+<h2 id="3-什么是数据库管理系统（DataBase-Management-System-简称DBMS）"><a href="#3-什么是数据库管理系统（DataBase-Management-System-简称DBMS）" class="headerlink" title="3 什么是数据库管理系统（DataBase Management System 简称DBMS）"></a>3 什么是数据库管理系统（DataBase Management System 简称DBMS）</h2><p>在了解了Data与DB的概念后，如何科学地组织和存储数据，如何高效获取和维护数据成了关键</p>
+<p>这就用到了一个系统软件—数据库管理系统</p>
+<p>例如:<br>关系型数据库：MySQL、PostgreSQL Oracle、SQLite、DB2、Access、SQL Server</p>
+<p>非关系型数据库：</p>
+<p>Redis、 Voldemort、 Oracle BDB （键值存储数据库）</p>
+<p>CouchDB 、mongodb（文档型数据库）</p>
+<p>Neo4J、 InfoGrid、 Infinite Graph （图形(Graph)数据库）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">可以简单的理解为：</span><br><span class="line">    关系型数据库需要有表结构</span><br><span class="line">    非关系型数据库是key-value存储的，没有表结构</span><br></pre></td></tr></table></figure>
+
+<p>mysql主要用于大型门户，例如搜狗、新浪等，它主要的优势就是开放源代码，因为开放源代码这个数据库是免费的，他现在是甲骨文公司的产品。<br>oracle主要用于银行、铁路、飞机场等。该数据库功能强大，软件费用高。也是甲骨文公司的产品。<br>sql server是微软公司的产品，主要应用于大中型企业，如联想、方正等。</p>
+<p><strong>数据库系统的特点：</strong></p>
+<p><strong>1 数据结构化</strong></p>
+<p><strong>2 数据共享，冗余度低，易扩充</strong></p>
+<p><strong>3 数据独立性高</strong></p>
+<p><strong>4 数据由DBMS统一管理和控制</strong></p>
+<p>　　<strong>a：数据的安全性保护</strong></p>
+<p>　　<strong>b：数据的完整性检查</strong></p>
+<p>　　<strong>c：并发控制</strong></p>
+<p>　　<strong>d：数据库恢</strong>复</p>
+<h2 id="4-数据库服务器、数据管理系统、数据库、表与记录的关系（重点理解！！！）"><a href="#4-数据库服务器、数据管理系统、数据库、表与记录的关系（重点理解！！！）" class="headerlink" title="4.数据库服务器、数据管理系统、数据库、表与记录的关系（重点理解！！！）"></a>4.数据库服务器、数据管理系统、数据库、表与记录的关系（重点理解！！！）</h2><p><strong>记录：1 坦克 324245234 22（多个字段的信息组成一条记录，即文件中的一行内容）</strong></p>
+<p><strong>表：student,scholl,class_list（即文件）</strong></p>
+<p><strong>数据库：oldboy_stu（即文件夹）</strong></p>
+<p><strong>数据库管理系统：如mysql（是一个软件）</strong></p>
+<p><strong>数据库服务器：一台计算机（对内存要求比较高）</strong></p>
+<p><strong>总结：</strong></p>
+<p><strong>数据库服务器-：运行数据库管理软件</strong></p>
+<p><strong>数据库管理软件：管理-数据库</strong></p>
+<p><strong>数据库：即文件夹，用来组织文件/表</strong></p>
+<p><strong>表：即文件，用来存放多行内容/多条记录</strong></p>
+<p><img src="https://user-images.githubusercontent.com/57135669/88484691-ff1d8e00-cfa2-11ea-81d8-a73c36037fa9.png" alt="数据库1"></p>
+<h2 id="5-MySQL介绍-重点"><a href="#5-MySQL介绍-重点" class="headerlink" title="5.MySQL介绍(重点)"></a>5.MySQL介绍(重点)</h2><p>MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，目前属于 Oracle 旗下公司。MySQL 最流行的关系型数据库管理系统，在 WEB 应用方面MySQL是最好的 RDBMS (Relational Database Management System，关系数据库管理系统) 应用软件之一。</p>
+<ul>
+<li><strong>mysql是什么?</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#mysql就是一个基于socket编写的C/S架构的基于网络通信的软件</span></span><br><span class="line"></span><br><span class="line"> - 服务端:</span><br><span class="line">          - 基于网络通信</span><br><span class="line">          - 收发消息</span><br><span class="line"></span><br><span class="line"> - 客户端:</span><br><span class="line">          - 基于网络通信</span><br><span class="line">          - 收发消息</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">- 所有语言若想操作数据库，拿到服务端ip和port，都必须遵循一套标准的解析指令 ---》 SQL语句</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-所有基于网络通信的软件，底层都是socket。</span><br></pre></td></tr></table></figure>
+
+<h2 id="6安装数据库-重点"><a href="#6安装数据库-重点" class="headerlink" title="6安装数据库(重点)"></a>6安装数据库(重点)</h2><ul>
+<li>安装数据库<ul>
+<li>1.下载mysql安装包</li>
+<li>2.解压安装包放在D:中</li>
+<li>3.添加系统环境变量</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/57135669/88484693-02187e80-cfa3-11ea-9f84-f32f58f2ff25.png" alt="数据库2"></p>
+<p><img src="C:%5CUsers%5C%E6%B1%9F%E5%85%88%E7%94%9F%5CDesktop%5C%E5%9B%BE%E5%BA%8A%5C%E6%95%B0%E6%8D%AE%E5%BA%932.png" alt="img"></p>
+<p>4.以管理员身份打开cmd，输入mysqld启动服务端，此时会卡主</p>
+<ul>
+<li>打开的即bin目录下的: mysqld.exe</li>
+</ul>
+<p><strong>注意</strong>:</p>
+<ul>
+<li>做服务端操作时，必须先以<strong>管理员</strong>身份打开cmd</li>
+</ul>
+<p>5.新建一个cmd，mysql客户端连接服务端，输入mysql -h 127.0.0.1 -P 3306 -p 密码</p>
+<ul>
+<li>mysql初始化时无密码，可以进入游客模式，功能会很少<br>入 —》 可不需要“-p 密码”</li>
+<li>全写: mysql -h 127.0.0.1 -P 3306 -p 密码<br>简写: mysql -uroot -p 密码</li>
+<li>打开的即bin目录下的: mysql.exe</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/57135669/88484695-06449c00-cfa3-11ea-9340-220d7e1aad23.png" alt="数据库3"></p>
+<p>6.退出数据库客户端</p>
+<p>exit; 或者 quit;(记得加分号)</p>
+<p>注意: SQL语句末尾必须加 “;” 号。</p>
+<p>7.查看操作系统服务端进程和停止进程</p>
+<ul>
+<li><p>查看操作系统中是否已经启动mysqld 服务端</p>
+<p>tasklist | findstr “mysqld”</p>
+<p>会得到一个pid号</p>
+</li>
+<li><p>停止服务端mysqld进程</p>
+<p>taskkill /F /PID pid号</p>
+</li>
+</ul>
+<p>8.查看所有数据库</p>
+<ul>
+<li>show databases;</li>
+</ul>
+<p>9.制作系统服务</p>
+<ul>
+<li><p>1.必须将已启动的服务端mysqld关掉</p>
+</li>
+<li><p>2.删掉已经启动过的mysqld的进程</p>
+</li>
+<li><p>3.输入 mysqld –install —-&gt; 安装mysqld系统服务</p>
+</li>
+<li><p>4.输入 net start mysqld</p>
+<p>以管理员身份运行后,直接输入net start mysql 可以打开服务,<br>​ 输入net stop mysql 可以关闭服务</p>
+</li>
+</ul>
+<p>10.登陆</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- mysql -u 登录mysql用户名（root） -p 密码</span><br><span class="line">    - 默认自带 root 超级用户， 没有密码(初始化时)</span><br><span class="line">    - 管理员登录</span><br><span class="line">        - mysql -uroot 回车进入</span><br><span class="line"></span><br><span class="line">    - 游客登录</span><br><span class="line">        - mysql 回车</span><br></pre></td></tr></table></figure>
+
+<p>11.修改密码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- 修改密码:</span><br><span class="line">    - 默认没有密码的情况下，设置密码</span><br><span class="line">        - cmd&gt;&gt;&gt;: mysqladmin -uroot <span class="keyword">pass</span></span><br><span class="line">        word <span class="number">123</span></span><br><span class="line"></span><br><span class="line">    - 有密码的情况下，修改密码</span><br><span class="line">        - cmd&gt;&gt;&gt;: mysqladmin -uroot -p原密码 password修改的密码</span><br><span class="line">        - cmd&gt;&gt;&gt;: mysqladmin -uroot -p123456 password <span class="number">123</span></span><br></pre></td></tr></table></figure>
+
+<p>12.破解密码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- 破解密码: 当密码忘记时采用</span><br><span class="line">       - <span class="number">1.</span>关闭服务端</span><br><span class="line">       - <span class="number">2.</span>以管理员跳过权限启动服务端</span><br><span class="line">           - cmd&gt;&gt;&gt;:  mysqld --skip-grant-tables</span><br><span class="line"></span><br><span class="line">       - <span class="number">3.</span>客户端进入游客模式:</span><br><span class="line">           - cmd&gt;&gt;&gt;:  mysql</span><br><span class="line"></span><br><span class="line">           - update mysql库.user表名 set 字段password=字段password(<span class="string">'字段值'</span>) where 条件（若条件成立，则修改）user=<span class="string">"root"</span>;</span><br><span class="line">           - cmd&gt;&gt;&gt;:  update mysql.user set password=password(<span class="string">'123456'</span>) where user=<span class="string">"root"</span>;</span><br><span class="line"></span><br><span class="line">       - <span class="number">4.</span>重新启动服务端，不要跳过权限认证</span><br><span class="line">           - 先kill掉跳过权限认证启动的服务端进程</span><br><span class="line">           - 再手动去开服服务中的mysql服务即可</span><br></pre></td></tr></table></figure>
+
+<p>12.设置配置文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- 设置配置文件:</span><br><span class="line">   - <span class="number">1.</span>先在mysql目录下  --》 D:\mysql<span class="number">-5.6</span><span class="number">.40</span>-winx64</span><br><span class="line"></span><br><span class="line">   - <span class="number">2.</span>创建一个名为 “my.ini” 的文件，这个是mysql的配置文件,将下面内容复制进my.ini文件中</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">            [mysqld]</span></span><br><span class="line"><span class="string">            character-set-server=utf8</span></span><br><span class="line"><span class="string">            collation-server=utf8_general_ci</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            # 这个是用python软件连接的客户端</span></span><br><span class="line"><span class="string">            [client]</span></span><br><span class="line"><span class="string">            default-character-set=utf8</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            # mysql软件的客户端</span></span><br><span class="line"><span class="string">            [mysql]</span></span><br><span class="line"><span class="string">            # 可写，可不写这样可以不需要用户名与密码直接登录mysql</span></span><br><span class="line"><span class="string">            # user='root'</span></span><br><span class="line"><span class="string">            # password=123</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            # 设置默认的字符编码</span></span><br><span class="line"><span class="string">            default-character-set=utf8</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">   - <span class="number">3.</span>重启mysql服务,即修改成功!</span><br><span class="line"></span><br><span class="line">	\s; 可以查看当前配置文件</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-数据库基本操作"><a href="#7-数据库基本操作" class="headerlink" title="7.数据库基本操作"></a>7.数据库基本操作</h2><ul>
+<li>数据库的基本操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- 数据库基本操作:</span><br><span class="line">        - 库的操作 ---&gt; 类似于文件夹</span><br><span class="line">            - 增:</span><br><span class="line">                语法: create database 库名;</span><br><span class="line">                    - create database db1;</span><br><span class="line">            - 选择:</span><br><span class="line">                 语法:use 库名;</span><br><span class="line">                      use db1;</span><br><span class="line"></span><br><span class="line">            - 查</span><br><span class="line">                语法: show databases;  <span class="comment"># 查看所有库</span></span><br><span class="line">                      show create database db1;  <span class="comment"># 查看db1库中的信息</span></span><br><span class="line"></span><br><span class="line">            - 改</span><br><span class="line">                语法: alter database 库名 charset=<span class="string">"字符编码类型"</span>;</span><br><span class="line">                    - alter database db1 charset=<span class="string">"utf8"</span>;</span><br><span class="line"></span><br><span class="line">            - 删</span><br><span class="line">                语法: drop database db1;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>表的基本操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- 表的操作 ---&gt; 类似于文件</span><br><span class="line">    - 操作表前，需要先切换到指定库</span><br><span class="line">        语法: use 库名;</span><br><span class="line">            - use db1;</span><br><span class="line"></span><br><span class="line">        查看当前所在的库: select database()</span><br><span class="line"></span><br><span class="line">    - 增</span><br><span class="line">        varchar与char 都是字符串类型;</span><br><span class="line">        varchar(<span class="number">20</span>)</span><br><span class="line">        语法: create table 表名(字段名 字段类型);</span><br><span class="line">            create table user_info(name varchar(<span class="number">20</span>), age int);</span><br><span class="line"></span><br><span class="line">            在db1库内为db2库添加表  </span><br><span class="line">            create 库名.表名(字段名,字段类型)</span><br><span class="line">            create table db2.user_info(name varchar(<span class="number">20</span>), age int);</span><br><span class="line"></span><br><span class="line">    - 查</span><br><span class="line">        show tables;  <span class="comment"># 查看当前库中所有的表</span></span><br><span class="line">        desc user_info;  <span class="comment"># 查看表结构</span></span><br><span class="line"></span><br><span class="line">    - 改</span><br><span class="line">        语法: alter table 表名 modify name varchar(<span class="number">28</span>);</span><br><span class="line">            - alter table user_info modify name varchar(<span class="number">28</span>);</span><br><span class="line"></span><br><span class="line">    - 删</span><br><span class="line">        语法: drop table 表名;</span><br><span class="line">            - create table test(id int);</span><br><span class="line">            - drop table test;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>记录的操作</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">- 记录 的操作 ---&gt; 类似于文件中的一行行数据</span><br><span class="line">    - 增:</span><br><span class="line">        语法: insert into 表名 values(<span class="string">'字段类型的数据1'</span>, 字段类型的数据<span class="number">1</span>);</span><br><span class="line">            <span class="comment"># 插入一条</span></span><br><span class="line">            - insert into user_info values(<span class="string">'tank'</span>, <span class="number">17</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 插入多条</span></span><br><span class="line">            - insert into user_info values(<span class="string">'jason'</span>, <span class="number">71</span>), (<span class="string">'sean'</span>, <span class="number">78</span>);</span><br><span class="line"></span><br><span class="line">    - 查：</span><br><span class="line">        *: 指的是所有</span><br><span class="line">        语法: select * <span class="keyword">from</span> 表名;  <span class="comment"># 查看表中所有的数据</span></span><br><span class="line">                - select * <span class="keyword">from</span> user_info;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 查看name 字段为 tank 的记录</span></span><br><span class="line">                - select * <span class="keyword">from</span> 表名 where 条件;  <span class="comment"># 条件成立则查看成功!</span></span><br><span class="line">                - select * <span class="keyword">from</span> user_info where name=<span class="string">"tank"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 查看name 字段为 tank 的age字段</span></span><br><span class="line">                - select age <span class="keyword">from</span> user_info where name=<span class="string">"tank"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 查看所有的名字:</span></span><br><span class="line">                - select name <span class="keyword">from</span> user_info;</span><br><span class="line"></span><br><span class="line">    - 改</span><br><span class="line">        语法: update 表名 set 字段名=字段值 where 条件判断;  <span class="comment"># 若条件成立，则修改成功!</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 修改age为17的记录中name属性为 handsome</span></span><br><span class="line">            - update user_info set name=<span class="string">'handsome'</span> where age=<span class="number">17</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 修改age&gt;16的记录 中name属性为 d_sb</span></span><br><span class="line">            - update user_info set name=<span class="string">'d_sb'</span> where age&gt;<span class="number">16</span>;</span><br><span class="line"></span><br><span class="line">    - 删</span><br><span class="line"></span><br><span class="line">        语法: delete <span class="keyword">from</span> 表名;</span><br><span class="line">            <span class="comment"># 清空表记录，不提交，可恢复。</span></span><br><span class="line">            - delete <span class="keyword">from</span> user_info;</span><br><span class="line"></span><br><span class="line">        语法: truncate table 表名;</span><br><span class="line">            <span class="comment"># 删除，不可恢复</span></span><br><span class="line">            - truncate table user_info;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/" data-id="ckd3c2hl70001z8ut2lq04mcd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL数据库的字段类型和约束条件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/02/python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python单例模式</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/24/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E5%92%8C%E9%94%81/">MySQL数据库的隔离级别和锁</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/16/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">MySQL数据库的基本操作</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/11/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6/">MySQL数据库的字段类型和约束条件</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/08/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%9F%BA%E7%A1%80%E4%BA%86%E8%A7%A3/">MySQL数据库的基础了解</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/02/python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">python单例模式</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
