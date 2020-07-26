@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>python函数之生成器 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="生成器(generator)1.什么是生成器？生成的工具。生成器是一个 “自定义” 的迭代器， 本质上是一个迭代器。 2.如何实现生成器但凡在函数内部定义了的yield，调用函数时，函数体代码不会执行，会返回一个结果，该结果就是一个生成器。 yield: 每一次yield都会往生成器对象中添加一个值。 注意：  yield只能在函数内部定义 yield可以保存函数的暂停状态  1234567891">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python函数之生成器">
+<meta property="og:url" content="http://yoursite.com/2018/10/13/python%E5%87%BD%E6%95%B0%E4%B9%8B%E7%94%9F%E6%88%90%E5%99%A8/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="生成器(generator)1.什么是生成器？生成的工具。生成器是一个 “自定义” 的迭代器， 本质上是一个迭代器。 2.如何实现生成器但凡在函数内部定义了的yield，调用函数时，函数体代码不会执行，会返回一个结果，该结果就是一个生成器。 yield: 每一次yield都会往生成器对象中添加一个值。 注意：  yield只能在函数内部定义 yield可以保存函数的暂停状态  1234567891">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-10-13T13:04:06.000Z">
+<meta property="article:modified_time" content="2020-07-26T16:08:49.062Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-python函数之生成器" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/10/13/python%E5%87%BD%E6%95%B0%E4%B9%8B%E7%94%9F%E6%88%90%E5%99%A8/" class="article-date">
+  <time datetime="2018-10-13T13:04:06.000Z" itemprop="datePublished">2018-10-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      python函数之生成器
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="生成器-generator"><a href="#生成器-generator" class="headerlink" title="生成器(generator)"></a>生成器(generator)</h1><h2 id="1-什么是生成器？"><a href="#1-什么是生成器？" class="headerlink" title="1.什么是生成器？"></a>1.什么是生成器？</h2><p>生成的工具。生成器是一个 “自定义” 的迭代器， 本质上是一个迭代器。</p>
+<h2 id="2-如何实现生成器"><a href="#2-如何实现生成器" class="headerlink" title="2.如何实现生成器"></a>2.如何实现生成器</h2><p>但凡在函数内部定义了的<strong>yield</strong>，调用函数时，函数体代码不会执行，会返回一个结果，该结果就是一个生成器。</p>
+<p><strong>yield:</strong> 每一次yield都会往生成器对象中添加一个值。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>yield只能在函数内部定义</li>
+<li>yield可以保存函数的暂停状态</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span>  <span class="comment"># 定义一个函数</span></span><br><span class="line">    print(<span class="string">'from func'</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'tank'</span>   <span class="comment"># 定义yield,需要添加什么值就在后面直接添加</span></span><br><span class="line">res = func()</span><br><span class="line">print(res)      <span class="comment"># 打印的结果就是一个生成器,并且直接打印是不会执行函数体代码的</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'from func'</span>)</span><br><span class="line">    <span class="keyword">yield</span> &#123;<span class="string">'tank'</span>:<span class="string">'sean'</span>&#125;  <span class="comment"># yield后面可以添加多个类型的值,如果是多个字符串,返回的是元组,如果以字典的形式添加返回的是字典</span></span><br><span class="line"></span><br><span class="line">res = func()</span><br><span class="line">print(res.__next__())   <span class="comment">#　只有以res.__next__()或者next(res)的形式才会执行函数体代码并将添加的值取出来</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'开始准备下蛋'</span>)</span><br><span class="line">    print(<span class="string">'1---火鸡蛋1'</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'火鸡蛋1'</span>     <span class="comment">#　每一次yield就往生成器里面添加一次值</span></span><br><span class="line">    print(<span class="string">'2---火鸡蛋2'</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'火鸡蛋2'</span></span><br><span class="line">    print(<span class="string">'3---火鸡蛋3'</span>)</span><br><span class="line">    <span class="keyword">yield</span> <span class="string">'火鸡蛋3'</span></span><br><span class="line"></span><br><span class="line">    print(<span class="string">'取最后一个蛋，查看是否有'</span>)</span><br><span class="line"></span><br><span class="line">res = func()</span><br><span class="line">print(next(func()))          <span class="comment"># 只会取第一次添加的值</span></span><br><span class="line">print(next(func()))</span><br><span class="line">print(next(func()))</span><br><span class="line">　　　　　　　　　　　　　　　　<span class="comment"># 上下两种情况是不一样的</span></span><br><span class="line"><span class="comment"># print(next(res))           # 会一个一个将添加的值取出来</span></span><br><span class="line"><span class="comment"># print(next(res))</span></span><br><span class="line"><span class="comment"># print(next(res))</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span>        <span class="comment"># 循环yield添加值</span></span><br><span class="line">    n = <span class="number">0</span></span><br><span class="line">    print(<span class="string">'开始准备下蛋'</span>)</span><br><span class="line">    <span class="keyword">while</span> n &lt; <span class="number">4</span>:</span><br><span class="line">        print(<span class="string">f'1---火鸡蛋<span class="subst">&#123;n&#125;</span>'</span>)</span><br><span class="line">        <span class="keyword">yield</span> <span class="string">f'火鸡蛋<span class="subst">&#123;n&#125;</span>'</span></span><br><span class="line">        n += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">res = func()</span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:      <span class="comment"># 循环取值</span></span><br><span class="line">    <span class="keyword">try</span>:         <span class="comment"># 注意,只有取出来上面的函数体才会正常运行</span></span><br><span class="line">        print(next(res))</span><br><span class="line">    <span class="keyword">except</span> StopIteration:</span><br><span class="line">        <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<p>yield与return比较:</p>
+<p>相同点：返回值的个数都是无限制的。</p>
+<p>不同点: return只能返回一次值，yield可以多次使用返回多个值</p>
+<h2 id="3-for循环里面的range"><a href="#3-for循环里面的range" class="headerlink" title="3.for循环里面的range"></a>3.for循环里面的range</h2><p>注意:在python2中,for 循环里面的range(1,5)—–&gt;得到的是列表[1, 2, 3, 4]</p>
+<p>在python3中,for循环里面range(1,5)—-&gt;得到的是一个生成器,本质上就是一个迭代器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自定义range功能，创建一个自定义的生成器</span></span><br><span class="line"><span class="comment"># (1, 3)  # start--&gt; 1  , end---&gt; 5, move=2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_range</span><span class="params">(start, end, move=<span class="number">1</span>)</span>:</span>  <span class="comment">#</span></span><br><span class="line">    <span class="keyword">while</span> start &lt; end:</span><br><span class="line">        <span class="keyword">yield</span> start</span><br><span class="line">        start += move</span><br><span class="line"></span><br><span class="line">g_range = my_range(<span class="number">1</span>, <span class="number">5</span>)</span><br><span class="line">print(g_range)    <span class="comment"># 本质是一个生成器 </span></span><br><span class="line">print(next(g_range))</span><br><span class="line">输出结果:</span><br><span class="line">&lt;generator object my_range at <span class="number">0x00000289B10A8348</span>&gt;</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> g_range:</span><br><span class="line">    print(line)</span><br><span class="line">输出结果:</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">    <span class="number">2</span></span><br><span class="line">    <span class="number">3</span></span><br><span class="line">    <span class="number">4</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> my_range(<span class="number">1</span>, <span class="number">5</span>, <span class="number">2</span>):</span><br><span class="line">    print(line)</span><br><span class="line">输出结果:</span><br><span class="line">    <span class="number">1</span></span><br><span class="line">    <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="列表生成式"><a href="#列表生成式" class="headerlink" title="列表生成式"></a>列表生成式</h1><h2 id="1-什么是列表生成式"><a href="#1-什么是列表生成式" class="headerlink" title="1.什么是列表生成式?"></a>1.什么是列表生成式?</h2><p>可以一行代码实现列表</p>
+<p>语法:</p>
+<p>list = [取出的每一个值、任意值 for 可迭代对象中取出的每一个值 in 可迭代对象]</p>
+<p>注意:</p>
+<p>for的右边是循环次数，并且可以取出可迭代对象中每一个值</p>
+<p>for的左边可以为当前列表添加值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">list = [值 <span class="keyword">for</span> 可迭代对象中取出的每一个值 <span class="keyword">in</span> 可迭代对象]        </span><br><span class="line"></span><br><span class="line">list = [值 <span class="keyword">for</span> 可迭代对象中取出的每一个值 <span class="keyword">in</span> 可迭代对象 <span class="keyword">if</span> 判断]</span><br><span class="line">一般情况:</span><br><span class="line">l1 = []  <span class="comment">#　先定义一个空集合</span></span><br><span class="line">l2 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>,]</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> l2:</span><br><span class="line">        l1.append(i)　　<span class="comment"># 逐个添加元素</span></span><br><span class="line">    print(l1)</span><br><span class="line">func()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">列表生成式</span><br><span class="line">l1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">l2 = [i <span class="keyword">for</span> i <span class="keyword">in</span> l1]</span><br><span class="line">或</span><br><span class="line">l2 = [i <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">6</span>)]</span><br><span class="line">print(l2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">将name_list列表中的jason过滤掉，其他人后缀都添加_dsb</span><br><span class="line">name_list = [<span class="string">'jason'</span>, <span class="string">'饼哥(大脸)'</span>, <span class="string">'sean'</span>, <span class="string">'egon'</span>, <span class="string">'tank'</span>]</span><br><span class="line">new_name_list = [name + <span class="string">'_dsb'</span> <span class="keyword">for</span> name <span class="keyword">in</span> name_list <span class="keyword">if</span> <span class="keyword">not</span> name == <span class="string">'jason'</span>] <span class="comment"># 可以添加if进行判断</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(new_name_list)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-生成器表达式和列表生成器对比"><a href="#2-生成器表达式和列表生成器对比" class="headerlink" title="2.生成器表达式和列表生成器对比"></a>2.生成器表达式和列表生成器对比</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">生成器表达式(生成器生成式):   </span><br><span class="line">    - 列表生成式:  若数据量小时采用        </span><br><span class="line">[line for line in range(1, 6)] ---&gt; [1, 2, 3, 4, 5]        </span><br><span class="line">优点:  可以依赖于索引取值，取值方便       </span><br><span class="line">缺点:  浪费资源    </span><br><span class="line">    - 生成器生成式:  若数据量过大时采用</span><br><span class="line">() ---&gt; 返回生成器     </span><br><span class="line">(line for line in range(1, 6)) ---&gt; g生成器(1, 2, 3, 4, 5)        </span><br><span class="line">优点:  节省资源        </span><br><span class="line">缺点:  取值不方便</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成一个有1000个值的生成器</span></span><br><span class="line">g = (line <span class="keyword">for</span> line <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">1000001</span>))  </span><br><span class="line"><span class="comment"># &lt;generator object &lt;genexpr&gt; at 0x00000203262318E0&gt;print(g)</span></span><br><span class="line"><span class="comment"># 列表生成式实现</span></span><br><span class="line">list1 = [line <span class="keyword">for</span> line <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">1000001</span>)]</span><br><span class="line">print(list1)</span><br></pre></td></tr></table></figure>
+
+<h1 id="三元表达式"><a href="#三元表达式" class="headerlink" title="三元表达式"></a>三元表达式</h1><h2 id="1-什么是三元表达式"><a href="#1-什么是三元表达式" class="headerlink" title="1.什么是三元表达式?"></a>1.什么是三元表达式?</h2><p>三元表达式就是将if…else…分支变成一行代码</p>
+<p>语法:</p>
+<p>条件成立返回左边的值 if 判断条件 else 条件不成立返回右边的值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">举例:</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a &gt; b :</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> b</span><br><span class="line"></span><br><span class="line">print(func(<span class="number">3</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写成三元表达式形式</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(a,b)</span>:</span></span><br><span class="line">    res = a <span class="keyword">if</span> a &gt; b <span class="keyword">else</span> b</span><br><span class="line">    print(res)</span><br><span class="line"></span><br><span class="line">func(<span class="number">5</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/10/13/python%E5%87%BD%E6%95%B0%E4%B9%8B%E7%94%9F%E6%88%90%E5%99%A8/" data-id="ckd3b0wwh0000o0utbjon3n1c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/21/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python常用模块
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/12/python%E5%87%BD%E6%95%B0%E4%B9%8B%E8%BF%AD%E4%BB%A3%E5%99%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python函数之迭代器</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Python/" style="font-size: 10px;">Python</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/02/python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">python单例模式</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/28/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B9%8B%E7%BB%A7%E6%89%BF%E5%B0%81%E8%A3%85%E5%A4%9A%E6%80%81/">python面向对象之继承封装多态</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/25/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">python面向对象</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/21/python%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97/">python常用模块</a>
+          </li>
+        
+          <li>
+            <a href="/2018/10/13/python%E5%87%BD%E6%95%B0%E4%B9%8B%E7%94%9F%E6%88%90%E5%99%A8/">python函数之生成器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
