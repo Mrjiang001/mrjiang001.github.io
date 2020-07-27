@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>request模块 | Mr Jiang</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="request模块 介绍  可以模拟发送http请求，基于urlib2：内置库，不太好用，繁琐，封装出requests模块，应用非常广泛（公司，人）  安装  1pip3 install requests   使用  123456789101112131415161718192021222324252627282930313233343536# 1 request模块基本使用import requ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="request模块">
+<meta property="og:url" content="http://yoursite.com/2019/09/18/request%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="Mr Jiang">
+<meta property="og:description" content="request模块 介绍  可以模拟发送http请求，基于urlib2：内置库，不太好用，繁琐，封装出requests模块，应用非常广泛（公司，人）  安装  1pip3 install requests   使用  123456789101112131415161718192021222324252627282930313233343536# 1 request模块基本使用import requ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408012957830-341060668.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408012950116-702733837.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408013013170-763315805.png">
+<meta property="article:published_time" content="2019-09-18T13:34:23.000Z">
+<meta property="article:modified_time" content="2020-07-27T08:43:55.384Z">
+<meta property="article:author" content="Mr Jiang">
+<meta property="article:tag" content="爬虫">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408012957830-341060668.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Mr Jiang" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Mr Jiang</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">头发还够，那就再多学点</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-request模块" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/18/request%E6%A8%A1%E5%9D%97/" class="article-date">
+  <time datetime="2019-09-18T13:34:23.000Z" itemprop="datePublished">2019-09-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      request模块
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="request模块"><a href="#request模块" class="headerlink" title="request模块"></a>request模块</h1><ul>
+<li>介绍</li>
+</ul>
+<p>可以模拟发送http请求，基于urlib2：内置库，不太好用，繁琐，封装出requests模块，应用非常广泛（公司，人）</p>
+<ul>
+<li>安装</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install requests</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>使用</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 1 request模块基本使用</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line"># 发送http请求</span><br><span class="line"># 请求方法get,delete,post。。本质都是调用request函数</span><br><span class="line">ret&#x3D;requests.get(&#39;https:&#x2F;&#x2F;www.cnblogs.com&#39;)</span><br><span class="line">print(ret.status_code) # 响应状态码</span><br><span class="line">print(ret.text)  # 响应体，转成了字符串</span><br><span class="line">print(ret.content) # 响应体，二进制</span><br><span class="line"># ret&#x3D;requests.post()</span><br><span class="line"># requests.get()和requests.request(&quot;get&quot;,)是一样的</span><br><span class="line"># ret&#x3D;requests.request(&quot;get&quot;,)</span><br><span class="line"># ret&#x3D;requests.delete()</span><br><span class="line"></span><br><span class="line"># 2 get 请求带参数</span><br><span class="line"># 方式一(直接携带参数需要考虑转码的问题)</span><br><span class="line">ret &#x3D; requests.get(&#39;https:&#x2F;&#x2F;www.baidu.com&#x2F;?name&#x3D;wd&#x3D;%E7%BE%8E%E5%A5%B3&#39;,</span><br><span class="line">                   headers&#x3D;&#123;&#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebK  it&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;80.0.3987.132 Safari&#x2F;537.36&#39;</span><br><span class="line">                            &#125;)</span><br><span class="line"> print(ret.text)</span><br><span class="line"># 方式2（建议用方式二）中文会自动转码</span><br><span class="line">ret&#x3D;requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;,params&#x3D;&#123;&#39;name&#39;:&quot;美女&quot;,&#39;age&#39;:18&#125;)</span><br><span class="line">print(ret.text)</span><br><span class="line"># 3 带headers</span><br><span class="line">ret &#x3D; requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;?name&#x3D;%E7%BE%8E%E5%A5%B3&#39;,</span><br><span class="line">                    headers&#x3D;&#123;</span><br><span class="line">                       # 标志，什么东西发出的请求以及浏览器信息，在django框架从meta中获取</span><br><span class="line">                        &#39;User-Agent&#39;: &#39;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;79.0.3945.130 Safari&#x2F;537.36&#39;,</span><br><span class="line">                       # 上一个页面的地址，图片防盗链</span><br><span class="line">#                        &#39;Referer&#39;: &#39;xxx&#39;</span><br><span class="line">#                    &#125;)</span><br><span class="line"># print(ret)</span><br><span class="line"></span><br><span class="line"># 图片防盗链：如果图片的referer不是我自己的网站，就直接禁止掉</span><br><span class="line"># &lt;img src&#x3D;&quot;https:&#x2F;&#x2F;www.lgstatic.com&#x2F;lg-community-fed&#x2F;community&#x2F;modules&#x2F;common&#x2F;img&#x2F;avatar_default_7225407.png&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408012957830-341060668.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"># 4 带cookie,随机字符串(用户信息：也代表session)，不管后台用的token认证，还是session认证</span><br><span class="line"># 一旦登陆了，带着cookie发送请求，表示登陆了（下单，12306买票，评论）</span><br><span class="line"># 第一种方式</span><br><span class="line"># ret &#x3D; requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;?name&#x3D;%E7%BE%8E%E5%A5%B3&#39;,</span><br><span class="line">#                    headers&#x3D;&#123;</span><br><span class="line">#                        &#39;cookie&#39;: &#39;key3&#x3D;value;key2&#x3D;value&#39;,</span><br><span class="line">#                    &#125;)</span><br><span class="line"># 第二种方式</span><br><span class="line"># ret &#x3D; requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;?name&#x3D;%E7%BE%8E%E5%A5%B3&#39;,</span><br><span class="line">#                    cookies&#x3D;&#123;&quot;islogin&quot;:&quot;xxx&quot;&#125;)</span><br><span class="line"># print(ret)</span><br><span class="line"># 5 发送post请求（注册，登陆），携带数据（body）</span><br><span class="line">#两种数据格式data&#x3D;None, json&#x3D;None</span><br><span class="line"># data:urlencoded编码</span><br><span class="line">ret&#x3D;requests.post(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;,data&#x3D;&#123;&#39;name&#39;:&quot;lqz&quot;,&#39;age&#39;:18&#125;)</span><br><span class="line"># json:json编码</span><br><span class="line">import json</span><br><span class="line">data&#x3D;json.dumps(&#123;&#39;name&#39;:&quot;lqz&quot;,&#39;age&#39;:18&#125;)</span><br><span class="line">ret&#x3D;requests.post(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;,json&#x3D;data)</span><br><span class="line">print(ret)</span><br><span class="line"># 注意：编码格式是请求头中带的，所有我可以手动修改，在headers中改</span><br><span class="line"></span><br><span class="line"># 6 session对象</span><br><span class="line"> session&#x3D;requests.session()</span><br><span class="line"># 跟requests.get&#x2F;post用起来完全一样，但是它处理了cookie</span><br><span class="line"># # 假设是一个登陆功能，并且成功</span><br><span class="line"> session.post()</span><br><span class="line"># # 再向该网站发请求，就是登陆状态，不需要手动携带cookie</span><br><span class="line"> session.get(&quot;地址&quot;)</span><br><span class="line"># 7 响应对象</span><br><span class="line"># print(respone.text)   # 响应体转成str</span><br><span class="line"># print(respone.content) # 响应体二进制（图片，视频）</span><br><span class="line">#</span><br><span class="line"># print(respone.status_code) # 响应状态码</span><br><span class="line"># print(respone.headers) # 响应头</span><br><span class="line"># print(respone.cookies) # 服务端返回的cookie</span><br><span class="line"># print(respone.cookies.get_dict()) # 转成字典</span><br><span class="line"># print(respone.cookies.items())</span><br><span class="line">#</span><br><span class="line"># print(respone.url)  # 当次请求的地址</span><br><span class="line"># print(respone.history) # 如果有重定向，放到一个列表中</span><br><span class="line"># ret&#x3D;requests.post(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;)</span><br><span class="line"># ret&#x3D;requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;admin&#39;)</span><br><span class="line"># #不要误解，是当次访问对象里面的重定向地址</span><br><span class="line"># ret&#x3D;requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;user&#39;)</span><br><span class="line"># print(ret.history)</span><br><span class="line"></span><br><span class="line"># print(respone.encoding) # 编码方式</span><br><span class="line"># 乱码问题</span><br><span class="line"># 加载回来的页面，打印出来，乱码（我们用的是utf8编码），如果网站用gbk，</span><br><span class="line"># ret.encoding&#x3D;&#39;gbk&#39;</span><br><span class="line"></span><br><span class="line">#response.iter_content() # 视频，图片太大不能一次性取完，可以循环迭代取值</span><br><span class="line"># with open(&quot;a.mp4&quot;,&#39;wb&#39;) as f:</span><br><span class="line">#     for line in response.iter_content():</span><br><span class="line">#         f.write(line)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ret&#x3D;requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;user&#39;)</span><br><span class="line"># # ret.apparent_encoding获取当前页面的编码</span><br><span class="line"># ret.encoding&#x3D;ret.apparent_encoding</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408012950116-702733837.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 8 解析json</span><br><span class="line"># 返回数据，有可能是json格式，有可能是html格式</span><br><span class="line"># ret&#x3D;requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;)</span><br><span class="line"># print(type(ret.text))# text拿到的是字符串格式</span><br><span class="line"># print(ret.text)</span><br><span class="line">#ret.json()可以自动转为json格式</span><br><span class="line"># a&#x3D;ret.json()</span><br><span class="line"># print(a[&#39;name&#39;])</span><br><span class="line"># print(type(a))</span><br><span class="line">#9.超时设置</span><br><span class="line">#两种超时:float or tuple</span><br><span class="line">#timeout&#x3D;0.1 #代表接收数据的超时时间</span><br><span class="line">#timeout&#x3D;(0.1,0.2)#0.1代表链接超时  0.2代表接收数据的超时时间</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">respone&#x3D;requests.get(&#39;https:&#x2F;&#x2F;www.baidu.com&#39;,</span><br><span class="line">                     timeout&#x3D;0.0001)</span><br><span class="line"># 10 异常处理</span><br><span class="line"># 用try except捕获一下 就用它就可以了：Exception</span><br><span class="line"></span><br><span class="line"># 12 上传文件(爬虫用的比较少，后台写服务，)</span><br><span class="line">file&#x3D;&#123;&#39;myfile&#39;:open(&quot;1.txt&quot;,&#39;rb&#39;)&#125;</span><br><span class="line">ret&#x3D;requests.post(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;,files&#x3D;file)</span><br><span class="line">print(ret.content)</span><br></pre></td></tr></table></figure>
+
+<h2 id="四-代理"><a href="#四-代理" class="headerlink" title="四.代理"></a>四.代理</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># proxies参数中可设置代理地址</span><br><span class="line">ret&#x3D;requests.get(&#39;http:&#x2F;&#x2F;0.0.0.0:8001&#x2F;&#39;,proxies&#x3D;&#123;&#39;http&#39;:&#39;地址&#39;&#125;)</span><br><span class="line">#django如何拿到客户端ip地址 </span><br><span class="line">META.get(&quot;REMOTE_ADDR&quot;) </span><br><span class="line"># 如果设置了代理则get得到的就是我们设置的代理而不是真实ip地址</span><br><span class="line">代理池：列表，其实就是代理池的一种</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/1843708/202004/1843708-20200408013013170-763315805.png" alt="img"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/18/request%E6%A8%A1%E5%9D%97/" data-id="ckd49wrd0001el4uthw25heok" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/27/Docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Docker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/17/%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">爬虫基础</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%88%AC%E8%99%AB/" rel="tag">爬虫</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" rel="tag">网络和并发编程</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Django/" style="font-size: 16.67px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/%E7%88%AC%E8%99%AB/" style="font-size: 10px;">爬虫</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E5%92%8C%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" style="font-size: 10px;">网络和并发编程</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">九月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/28/Docker%E9%95%9C%E5%83%8F%E5%AE%B9%E5%99%A8%E6%93%8D%E4%BD%9C/">Docker镜像容器操作</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/27/Docker/">Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/18/request%E6%A8%A1%E5%9D%97/">request模块</a>
+          </li>
+        
+          <li>
+            <a href="/2019/09/17/%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80/">爬虫基础</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/02/Django%E6%A1%86%E6%9E%B6%E4%B9%8BAjax/">Django框架之Ajax</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Mr Jiang<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
